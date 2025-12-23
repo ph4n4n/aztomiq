@@ -6,7 +6,7 @@
 
 A high-performance, **privacy-first**, and ultra-modular multi-tool website framework. Built with a passion for simplicity and speed.
 
-[Live Demo](https://aztomiq.site) • [Report Bug](https://github.com/your-username/aztomiq/issues) • [Request Feature](https://github.com/your-username/aztomiq/issues)
+[Live Demo](https://ztools.site) • [Report Bug](https://github.com/ph4n4n/aztomiq/issues) • [Request Feature](https://github.com/ph4n4n/aztomiq/issues)
 
 ---
 
@@ -53,7 +53,7 @@ AZtomiq isn't just another static site generator. It's an **Ecosystem** designed
 ### 1. Installation
 
 ```bash
-git clone https://github.com/your-username/aztomiq.git
+git clone https://github.com/ph4n4n/aztomiq.git
 cd aztomiq
 npm install
 ```
