@@ -1,0 +1,66 @@
+<header class="site-header">
+  <div class="header-inner container">
+    <div class="nav-item logo-wrapper">
+      <a href="<%= rootPath %><%= locale %>/" class="logo-link">
+        <img src="<%= rootPath %>assets/images/logo.svg" alt="Logo" class="logo-icon" width="28" height="28">
+        <span class="logo-text">
+          <%= global.site.title || 'AZtomiq' %>
+        </span>
+      </a>
+
+      <button class="menu-trigger dropdown-toggle" aria-haspopup="true" aria-expanded="false" title="Menu"
+        style="background: none; border: none; padding: 4px; cursor: pointer; display: flex; align-items: center; margin-left: 5px;">
+        <i data-lucide="chevron-down" style="width: 16px; height: 16px; color: var(--text-muted); opacity: 0.6;"></i>
+      </button>
+
+      <%- include('mega-menu.ejs') %>
+    </div>
+
+    <div class="header-actions">
+      <!-- Desktop Search Box -->
+      <div class="header-search-box desktop-only" id="header-search-box">
+        <span class="search-box-icon"><i data-lucide="search" style="width: 18px; height: 18px;"></i></span>
+        <input type="text" class="header-search-input"
+          placeholder="<%= t('nav.search_placeholder') || 'Search tools...' %>" readonly>
+        <kbd>Ctrl+K</kbd>
+      </div>
+
+      <a href="<%= rootPath %><%= locale %>/categories/" class="btn-icon"
+        title="<%= t('nav.menu_categories') || 'Categories' %>" aria-label="Categories">
+        <i data-lucide="grid-3x3"></i>
+      </a>
+
+      <button id="search-btn-mobile" class="btn-icon search-trigger mobile-only"
+        title="<%= t('nav.search_title') || 'Search' %>" aria-label="Search">
+        <i data-lucide="search"></i>
+      </button>
+
+      <a href="<%= rootPath %><%= locale === 'vi' ? 'en' : 'vi' %>/<%= pageUrl %>" class="lang-switch"
+        title="Switch Language" aria-label="<%= locale === 'vi' ? 'English' : 'Tiếng Việt' %>">
+        <span aria-hidden="true">
+          <%= locale==='vi' ? '🇺🇸' : '🇻🇳' %>
+        </span>
+      </a>
+      <button id="mode-toggle" class="mode-toggle-btn" title="<%= t('nav.mode_advanced_desc') %>"
+        aria-label="Toggle User Mode">
+        <span class="mode-text">
+          <%= t('nav.mode_standard') || 'Standard' %>
+        </span>
+        <div class="mode-switch">
+          <div class="mode-slider">
+            <span class="mode-icon"><i data-lucide="zap" style="width: 12px; height: 12px;"></i></span>
+          </div>
+        </div>
+        <span class="mode-text">
+          <%= t('nav.mode_advanced') || 'Advanced' %>
+        </span>
+      </button>
+
+      <button id="theme-toggle" class="btn-icon" aria-label="Toggle Dark Mode">
+        <i data-lucide="moon"></i>
+      </button>
+    </div>
+  </div>
+
+  <%- include('header-data-only.ejs') %>
+</header>

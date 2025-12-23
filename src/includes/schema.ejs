@@ -1,0 +1,20 @@
+<% var baseUrl=global.site.url; var currentUrl=baseUrl + '/' + locale + '/' + (pageUrl || '' ); /* 1. WebSite Schema */
+  var websiteSchema={ "@context" : "https://schema.org" , "@type" : "WebSite" , "name" : "AZtomiq" , "url" :
+  baseUrl, "description" : t('meta.description'), "inLanguage" : locale==='vi' ? 'vi-VN' : 'en-US' , "author" :
+  { "@type" : "Person" , "name" : global.site.author } }; /* 2. Breadcrumb Schema */ var breadcrumbSchema={ "@context"
+  : "https://schema.org" , "@type" : "BreadcrumbList" , "itemListElement" : [ { "@type" : "ListItem" , "position" :
+  1, "name" : "Home" , "item" : baseUrl + '/' + locale + '/' } ] }; if (toolConfig && toolConfig.id) {
+  breadcrumbSchema.itemListElement.push({ "@type" : "ListItem" , "position" : 2, "name" : t(toolConfig.translationKey
+  + '.title' ), "item" : currentUrl }); } /* 3. Application Schema */ var appSchema=null; if (toolConfig &&
+  toolConfig.id) { appSchema={ "@context" : "https://schema.org" , "@type" : "WebApplication" , "name" :
+  t(toolConfig.translationKey + '.title' ), "description" : t(toolConfig.translationKey + '.desc' ), "url" :
+  currentUrl, "applicationCategory" : "UtilityApplication" , "operatingSystem" : "Any" , "browserRequirements"
+  : "Requires JavaScript. Works on all modern browsers (Chrome, Firefox, Safari, Edge)." , "softwareVersion" :
+  toolConfig.meta ? toolConfig.meta.version : "1.0.0" , "offers" : { "@type" : "Offer" , "price" : "0" , "priceCurrency"
+  : "USD" }, "author" : { "@type" : "Person" , "name" : global.site.author }, "inLanguage" : locale==='vi' ? 'vi-VN'
+  : 'en-US' }; if (toolConfig && toolConfig.icon) { appSchema.image=baseUrl + '/assets/images/logo.svg' ; } } var
+  allSchemas=[websiteSchema, breadcrumbSchema]; if (appSchema) allSchemas.push(appSchema); %>
+
+  <script type="application/ld+json">
+<%- JSON.stringify(allSchemas, null, 2) %>
+</script>

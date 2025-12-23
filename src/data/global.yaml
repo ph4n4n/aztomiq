@@ -1,0 +1,27 @@
+site:
+  url: https://aztomiq.site
+  author: AZtomiq Team
+  description: AZtomiq - A comprehensive A-Z multi-tool framework.
+  og_image: /assets/images/og-default.png
+  keywords:
+    - free tools
+    - online utility
+    - aztomiq
+    - ss-framework
+build:
+  locales:
+    - en
+    - vi
+  default_locale: en
+  deploy:
+    remote: "origin"
+    branch: "gh-pages"
+    dist_folder: dist
+    strategy: init
+categories:
+  tools:
+    icon: wrench
+    key: tools
+    translation_key: home.cats.tools.title
+category_order:
+  - tools

@@ -1,0 +1,19 @@
+<% const masterTools={ 'tax' : 'salary-tax-master' , 'business-tax' : 'salary-tax-master' , 'freelancer-tax'
+  : 'salary-tax-master' , 'social-insurance' : 'salary-tax-master' , 'ot-calculator' : 'salary-tax-master'
+  , 'date-toolkit' : 'date-time-master' , 'timestamp-converter' : 'date-time-master' }; const
+  masterId=masterTools[featureName]; if (masterId) { %>
+  <!-- Banner: Show only if User is in Advanced Mode but viewing a Standard tool -->
+  <div class="deprecated-notice mode-advanced-only" style="margin-bottom: 2rem;">
+    <span class="icon">�</span>
+    <div class="notice-content">
+      <strong>
+        <%= t('nav.mode_advanced') || 'Advanced Mode' %>
+      </strong>:
+      <%= t('nav.mode_advanced_desc') %>
+        <a href="<%= rootPath %><%= locale %>/<%= masterId %>/" class="btn-link"
+          style="font-weight: bold; margin-left: 0.5rem; color: var(--primary-color);">
+          <%= t('common.try_master') || 'Open Master Tool' %> →
+        </a>
+    </div>
+  </div>
+  <% } %>

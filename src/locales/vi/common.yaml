@@ -1,0 +1,91 @@
+meta:
+  title: AZtomiq - Nền tảng hiện đại
+  description: "Bộ khung A-Z hiện đại để xây dựng trang web tiện ích."
+about:
+  title: Giới thiệu
+  intro_h2: "👋 Xin chào!"
+  intro_p1: "<strong>AZtomiq</strong> là bộ công cụ tiện ích trực tuyến được xây dựng với mục tiêu: <strong>Đơn giản - Nhanh chóng - Riêng tư - Tiện lợi</strong>."
+  intro_p2: "Chúng tôi hiểu rằng khi bạn cần tính toán tài chính, format JSON, hay <strong>thử nghiệm code nhanh (Playground)</strong>, bạn muốn có một môi trường làm việc tập trung, chuyên nghiệp và tức thì."
+  why_h3: "🚀 Tại sao chọn AZtomiq?"
+  why_li1: "<strong>Miễn phí trọn đời:</strong> Tất cả công cụ đều miễn phí."
+  why_li2: "<strong>Bảo mật tuyệt đối:</strong> Mọi tính toán diễn ra ngay trên trình duyệt của bạn (Client-side). Không có dữ liệu nào được gửi về máy chủ."
+  why_li3: "<strong>Giao diện thân thiện:</strong> Sạch sẽ, dễ nhìn, hỗ trợ Dark Mode."
+  contact_h3: "📬 Liên hệ"
+  contact_p: "Mọi ý kiến đóng góp, báo lỗi hoặc đề xuất tính năng, vui lòng liên hệ qua email:"
+privacy:
+  title: Chính sách bảo mật
+  last_updated: "Cập nhật lần cuối: 23/12/2025"
+  section1_h3: "1. Thu thập dữ liệu"
+  section1_p: "Tại <strong>AZtomiq</strong>, chúng tôi ưu tiên sự riêng tư của bạn lên hàng đầu. <strong>Chúng tôi KHÔNG thu thập, lưu trữ hay chia sẻ bất kỳ dữ liệu cá nhân nào bạn nhập vào các công cụ.</strong>"
+  section1_li1: "Dữ liệu tính thuế, lương, BMI... chỉ được xử lý trên trình duyệt của bạn."
+  section1_li2: "<strong>Web Playground:</strong> Mọi đoạn mã bạn viết và chạy đều được thực thi cục bộ (client-side) trong trình duyệt. Server của chúng tôi không lưu trữ mã nguồn của bạn."
+  section1_li3: "Khi bạn đóng tab hoặc tải lại trang, dữ liệu tạm thời này sẽ biến mất (trừ khi bạn chọn lưu vào LocalStorage)."
+  section2_h3: "2. Local Storage & Cookies"
+  section2_p: "Chúng tôi sử dụng <strong>Local Storage</strong> (bộ nhớ trình duyệt) cho các mục đích sau:"
+  section2_li1: "Lưu tùy chọn giao diện (Dark/Light mode)."
+  section2_li2: "Lưu lịch sử tính toán (nếu bạn bật tính năng này). Dữ liệu này nằm hoàn toàn trên thiết bị của bạn."
+  section2_p2: "Chúng tôi không sử dụng Cookies để theo dõi hành vi cá nhân."
+  section3_h3: "3. Dịch vụ bên thứ ba"
+  section3_p: "Website có thể sử dụng các dịch vụ phân tích ẩn danh để cải thiện hiệu suất. Các dịch vụ này hoạt động theo chính sách bảo mật riêng của họ."
+  section4_h3: "4. Thay đổi chính sách"
+  section4_p: "Chúng tôi có quyền cập nhật chính sách này bất cứ lúc nào. Các thay đổi sẽ được thông báo trên trang này."
+terms:
+  title: Điều khoản sử dụng
+  section1_h3: "1. Chấp nhận điều khoản"
+  section1_p: "Bằng việc truy cập và sử dụng <strong>AZtomiq</strong>, bạn đồng ý tuân thủ các điều khoản sử dụng này. Nếu bạn không đồng ý, vui lòng ngưng sử dụng dịch vụ."
+  section2_h3: "2. Mục đích sử dụng"
+  section2_p: "AZtomiq cung cấp các công cụ tính toán và tiện ích cho mục đích tham khảo."
+  section2_li1: "<strong>Công cụ Tài chính (Thuế, Lương...):</strong> Kết quả tính toán chỉ mang tính chất tham khảo. Chúng tôi nỗ lực cập nhật theo luật mới nhất nhưng không chịu trách nhiệm pháp lý về tính chính xác tuyệt đối. Vui lòng tham khảo ý kiến chuyên gia cho các quyết định quan trọng."
+  section2_li2: "<strong>Công cụ Sức khỏe (BMI...):</strong> Không thay thế cho lời khuyên y tế chuyên nghiệp."
+  section2_li3: "<strong>Web Playground:</strong> Bạn tự chịu trách nhiệm về mã nguồn bạn thực thi. Chúng tôi cung cấp môi trường chạy an toàn (sandbox) nhưng không chịu trách nhiệm về các vấn đề bảo mật phát sinh từ mã độc do người dùng tự chèn vào."
+  section3_h3: "3. Miễn trừ trách nhiệm"
+  section3_p: "AZtomiq được cung cấp 'nguyên trạng'. Chúng tôi không cam kết rằng dịch vụ sẽ không bị gián đoạn hoặc không có lỗi. Chúng tôi không chịu trách nhiệm về bất kỳ thiệt hại nào phát sinh từ việc sử dụng các công cụ trên trang web này."
+  section4_h3: "4. Bản quyền"
+  section4_p: "Mã nguồn và nội dung của AZtomiq thuộc quyền sở hữu của đội ngũ phát triển, trừ các thư viện mã nguồn mở được sử dụng hợp lệ."
+changelog:
+  title: Nhật ký thay đổi
+common:
+  legacy_title: Phiên bản cũ
+  legacy_desc: Công cụ này đã được tích hợp vào phiên bản mới.
+  try_master: Thử ngay
+  reset: Đặt lại
+nav:
+  home: Trang chủ
+  menu_categories: Danh mục
+  search_placeholder: "Tìm kiếm... (Ctrl + K)"
+  search_no_results: Không tìm thấy kết quả cho
+  search_title: Tìm kiếm
+  changelog_title: Nhật ký thay đổi
+  reset: Đặt lại
+  how_to_use: Hướng dẫn sử dụng
+  mode_standard: Standard
+  mode_advanced: Advanced
+  mode_standard_desc: Chế độ Tiêu chuẩn
+  mode_advanced_desc: Chế độ Nâng cao
+home:
+  hero_title: AZtomiq
+  hero_desc: "A to Z • Atomic • Tốc độ"
+  favorites: Công cụ yêu thích
+  cats:
+    finance:
+      title: Tài chính
+    dev:
+      title: Lập trình
+    tools:
+      title: Tiện ích
+  sort:
+    default: Mặc định
+    az: Tên (A-Z)
+    za: Tên (Z-A)
+    recent: Vừa xem
+    popular: Phổ biến nhất
+  reset: Đặt lại
+footer:
+  about_title: AZtomiq
+  about_desc: "Bộ khung A-Z hiện đại để xây dựng trang web tiện ích."
+  links_title: Liên kết
+  intro: Giới thiệu
+  policy: Chính sách
+  terms: Điều khoản
+  changelog: Cập nhật
+  copyright: "© 2025. Được xây dựng với ❤️."

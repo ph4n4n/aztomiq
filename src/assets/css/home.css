@@ -1,0 +1,595 @@
+/* Grid & List View Refined Logic */
+.category-section {
+  margin-bottom: var(--s-10);
+}
+
+.category-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: var(--s-5);
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  color: var(--text-color);
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--s-5);
+  transition: all 0.3s ease;
+}
+
+/* Base Tool Card Structure */
+.tool-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden; /* Important for the Corner Ribbon */
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Overlays - Fixed Corners */
+.star-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 50; /* Topmost */
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--border-color);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+[data-theme="dark"] .star-btn {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.star-btn:hover {
+  background: var(--card-bg);
+  border-color: #f59e0b;
+  color: #f59e0b;
+  transform: scale(1.1) rotate(5deg);
+}
+
+.star-btn.active {
+  background: #fffbeb;
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+[data-theme="dark"] .star-btn.active {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+/* --- LOGO & HEADER STYLES (Refined) --- */
+/* Navigation & Logo Clean-up - Targeted Kill */
+.logo-wrapper {
+  border: none !important;
+  background: none !important;
+}
+
+/* Kill borders/backgrounds ONLY for the logo and trigger button, NOT the menu content */
+.logo-link, 
+.menu-trigger {
+  border: none !important;
+  background: none !important;
+}
+
+/* Remove EVERY possible redundant caret */
+.logo-wrapper::after,
+.logo-wrapper::before,
+.logo-wrapper .cat-caret,
+.logo-wrapper .dropdown-toggle::after,
+.logo-wrapper .dropdown-toggle::before,
+.menu-trigger::after,
+.menu-trigger::before {
+  display: none !important;
+  content: none !important;
+}
+
+.logo-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* Kill redundant caret */
+.menu-trigger.dropdown-toggle::after {
+  content: none !important;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 800;
+  font-size: 1.25rem;
+}
+
+/* Forced Megamenu Logo Visibility */
+.mega-sidebar .sidebar-logo {
+  opacity: 1 !important;
+  transform: none !important;
+  display: flex !important;
+  width: auto !important;
+  visibility: visible !important;
+}
+
+.mega-sidebar .logo-icon {
+  width: 28px !important;
+  height: 28px !important;
+  margin-right: 12px !important;
+  display: block !important;
+}
+
+.mega-sidebar .logo-text {
+  background: linear-gradient(135deg, var(--text-color), var(--primary-color)) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  display: block !important;
+}
+
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  background: linear-gradient(135deg, var(--text-color), var(--primary-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+
+/* Base Badge System (Global) */
+.tool-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.tool-badge.beta {
+  background: #ecfeff;
+  color: #0891b2;
+  border: 1px solid #0891b2;
+}
+
+.tool-badge.hot {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fb923c;
+}
+
+/* Ribbon Variant - ONLY for Home Cards */
+.tool-card .tool-badge.hot {
+  position: absolute;
+  top: 10px;
+  left: -25px;
+  right: auto !important; /* Reset global right: 8px */
+  width: 90px !important; /* Force fixed width for ribbon */
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  color: white;
+  padding: 4px 0;
+  transform: rotate(-45deg);
+  box-shadow: 0 2px 6px rgba(249, 115, 22, 0.3);
+  border: none;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+}
+
+/* List/Menu Badges - Standard Pills */
+.tool-badge.hot:not(.tool-card .tool-badge.hot) {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fb923c;
+  transform: none;
+  position: static;
+  width: auto;
+}
+
+.tool-card .tool-badge.beta {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: auto !important; /* Prevent stretching */
+  width: auto !important;
+  z-index: 45;
+}
+
+.tool-card .tool-badge.hot + .tool-badge.beta {
+  top: 32px;
+  left: 6px;
+}
+
+/* Main Link Content */
+.tool-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem var(--s-4) var(--s-5);
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tool-icon-wrap {
+  width: 56px;
+  height: 56px;
+  background: var(--bg-hover);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--s-4);
+  color: var(--primary-color);
+  transition: all 0.3s;
+}
+
+.tool-card:hover .tool-icon-wrap {
+  background: var(--primary-subtle);
+  transform: scale(1.05);
+}
+
+.tool-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: var(--s-2);
+  text-align: center;
+  color: var(--text-color);
+}
+
+.tool-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- List View Specifics --- */
+.tools-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+.tools-grid.list-view .tool-card {
+  flex-direction: row;
+  min-height: 80px;
+  overflow: visible; /* Ribbons might look weird in list, but let's see */
+}
+
+.tools-grid.list-view .tool-link {
+  flex-direction: row;
+  padding: 0 var(--s-5);
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  gap: var(--s-5);
+}
+
+.tools-grid.list-view .tool-icon-wrap {
+  margin-bottom: 0;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.tools-grid.list-view .tool-card h3 {
+  margin-bottom: 0;
+  text-align: left;
+  min-width: 180px;
+}
+
+.tools-grid.list-view .tool-card p {
+  text-align: left;
+  -webkit-line-clamp: 1;
+}
+
+.tools-grid.list-view .tool-badge-row {
+  display: none; 
+}
+
+/* Hero & Search */
+.hero-search-wrap {
+  margin-bottom: var(--s-10);
+  padding: 0 var(--s-4);
+}
+.hero {
+  min-height: 200px;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Hero Search Pro Effects */
+.hero-search-wrap {
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 10;
+  padding: 0 1rem;
+  min-height: 80px;
+}
+
+.search-box-hero {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  box-shadow: var(--shadow);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-box-hero:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.search-box-hero:focus-within {
+  transform: scale(1.03) translateY(-2px);
+  border-color: var(--primary-color);
+  box-shadow: 0 25px 30px -10px rgba(var(--primary-rgb), 0.2);
+}
+
+.search-box-hero input {
+  border: none !important;
+  background: transparent !important;
+  padding: 0.75rem 0 !important;
+  font-size: 1.25rem !important;
+  flex: 1;
+  outline: none !important;
+  color: var(--text-color);
+}
+
+.search-box-hero .search-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  opacity: 0.7;
+  transition: transform 0.3s;
+}
+
+.search-box-hero:focus-within .search-icon {
+  transform: scale(1.2) rotate(-10deg);
+  opacity: 1;
+}
+
+.search-box-hero .search-hints {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-right: 1.5rem;
+  opacity: 0.5;
+}
+
+.search-box-hero .search-hints kbd {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-hover);
+  font-family: inherit;
+}
+
+/* Highlight Section */
+.highlight-section {
+  margin-bottom: 5rem;
+  padding: 2rem;
+  background: var(--bg-hover);
+  border-radius: 24px;
+  border: 1px solid var(--border-color);
+}
+
+.highlight-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.badge-new {
+  background: var(--primary-color);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.highlight-card {
+  background: var(--card-bg);
+  padding: 2rem; /* Increased padding for center layout */
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center; /* Center text */
+  gap: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Sleek Full Border Shimmer */
+.highlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  /* Border thickness */
+  border-radius: inherit;
+  background: linear-gradient(90deg,
+      transparent,
+      var(--primary-color),
+      #d8b4fe,
+      transparent);
+  background-size: 200% 100%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.highlight-card:hover {
+  transform: translateY(-8px);
+  border-color: transparent;
+  /* Hide static border on hover */
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+}
+
+.highlight-card:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.highlight-icon {
+  font-size: 2.5rem;
+  background: var(--bg-hover);
+  width: 64px; /* Slightly smaller for center look */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  flex-shrink: 0;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center button */
+  width: 100%;
+}
+
+.highlight-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.highlight-info p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem; /* More space for button */
+  line-height: 1.6;
+}
+
+.btn-explore {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto; /* Push to bottom if height varies */
+}
+
+.btn-explore .arrow {
+  transition: transform 0.2s;
+}
+
+.highlight-card:hover .btn-explore .arrow {
+  transform: translateX(5px);
+}
+
+@media (max-width: 600px) {
+  .highlight-card {
+    padding: 1.5rem;
+  }
+
+  .highlight-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+}

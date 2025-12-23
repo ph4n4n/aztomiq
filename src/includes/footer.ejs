@@ -1,0 +1,34 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <h3>
+        <%= t('footer.about_title') || 'AZtomiq' %>
+      </h3>
+      <p>
+        <%= t('footer.about_desc') || 'A modern framework for utility sites.' %>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>
+        <%= t('footer.links_title') || 'Links' %>
+      </h4>
+      <ul>
+        <li><a href="<%= rootPath %><%= locale %>/privacy/">
+            <%= t('footer.policy') || 'Privacy Policy' %>
+          </a></li>
+        <li><a href="<%= rootPath %><%= locale %>/terms/">
+            <%= t('footer.terms') || 'Terms of Service' %>
+          </a></li>
+        <li><a href="<%= rootPath %><%= locale %>/changelog/">
+            <%= t('footer.changelog') || 'Version History' %>
+          </a></li>
+      </ul>
+    </div>
+    <div class="footer-copyright">
+      <span>
+        <%= t('footer.copyright') || '© 2025 AZtomiq' %>
+      </span>
+      <span>v<%= packageVersion || '1.0.0' %></span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,43 @@
+<!-- Search Overlay / Modal (Reusable by hidden header mode) -->
+<div id="search-modal" class="search-modal">
+  <div class="search-overlay"></div>
+  <div class="search-container">
+    <div class="search-header">
+      <span class="search-icon" aria-hidden="true"><i data-lucide="search"></i></span>
+      <input type="text" id="search-input" placeholder="<%= t('nav.search_placeholder') %>" autocomplete="off"
+        aria-label="<%= t('nav.search_placeholder') %>">
+      <button id="close-search" class="close-search"
+        aria-label="<%= locale === 'vi' ? 'Đóng tìm kiếm' : 'Close search' %>">&times;</button>
+    </div>
+    <div id="search-results" class="search-results">
+      <!-- Results will be injected here -->
+    </div>
+    <div class="search-footer">
+      <div class="search-hints">
+        <span><kbd>↵</kbd> Select</span>
+        <span><kbd>↑↓</kbd> Navigate</span>
+        <span><kbd>esc</kbd> Close</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Embed i18n data for client-side JS -->
+<script id="i18n-data" type="application/json">
+  {
+    "search_no_results": "<%= t('nav.search_no_results') %>"
+  }
+</script>
+
+<!-- Embed tools data for client-side search -->
+<script id="tools-data" type="application/json">
+  <% const translate = t; %>
+  <%- JSON.stringify(tools.filter(t => t.status === 'active' || t.status === 'not-ready' || t.status === 'legacy').map(tool => ({ 
+    id: tool.id, 
+    link: rootPath + locale + tool.link, 
+    icon: tool.icon, 
+    title: translate(tool.translationKey + '.title'),
+    desc: translate(tool.translationKey + '.desc'),
+    category: translate('home.cats.' + tool.category + '.title') || tool.category
+  }))) %>
+</script>

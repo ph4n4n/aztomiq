@@ -1,0 +1,8 @@
+id: hello-world
+translationKey: hello_world
+icon: smile
+category: tools
+status: active
+mode: standard
+meta:
+  version: 1.0.0

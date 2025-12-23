@@ -1,0 +1,78 @@
+const CACHE_NAME = 'aztomiq-v1';
+const IS_DEV = <%= isDev %>;
+  const STATIC_ASSETS = [
+  './',
+  './manifest.json',
+  './assets/css/global.css',
+  './assets/js/global.js',
+  <% const assets=new Set(); locales.forEach(lang=> {
+    assets.add(`./${lang}/`);
+    assets.add(`./${lang}/index.html`);
+    });
+
+    tools.forEach(tool => {
+    assets.add(`./assets/features/${tool.id}/style.css`);
+    assets.add(`./assets/features/${tool.id}/script.js`);
+    locales.forEach(lang => {
+    assets.add(`./${lang}/${tool.id}/`);
+    });
+    });
+
+    const assetList = Array.from(assets);
+    assetList.forEach((a, i) => { -%>
+    '<%= a %>'<%= i < assetList.length - 1 ? ',' : '' %>
+        <% }); -%>
+          ];
+
+          // Install Event
+          self.addEventListener('install', (e) => {
+          if (IS_DEV) {
+          self.skipWaiting();
+          return;
+          }
+          console.log('[SW] Installing...');
+          e.waitUntil(
+          caches.open(CACHE_NAME).then((cache) => {
+          console.log('[SW] Caching App Shell');
+          return cache.addAll(STATIC_ASSETS);
+          })
+          );
+          self.skipWaiting();
+          });
+
+          // Activate Event
+          self.addEventListener('activate', (e) => {
+          console.log('[SW] Activating...');
+          e.waitUntil(
+          caches.keys().then((keys) =>
+          Promise.all(
+          keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
+          )
+          )
+          );
+          self.clients.claim();
+          });
+
+          // Fetch Event
+          self.addEventListener('fetch', (e) => {
+          if (IS_DEV) return; // Skip cache in dev mode
+
+          if (e.request.method !== 'GET' || !e.request.url.startsWith(self.location.origin)) {
+          return;
+          }
+
+          e.respondWith(
+          caches.open(CACHE_NAME).then(async (cache) => {
+          const cachedResponse = await cache.match(e.request);
+          const fetchPromise = fetch(e.request).then((networkResponse) => {
+          if (networkResponse.ok) {
+          cache.put(e.request, networkResponse.clone());
+          }
+          return networkResponse;
+          }).catch((err) => {
+          console.warn('[SW] Network fail:', err);
+          });
+          return cachedResponse || fetchPromise;
+          })
+          );
+          });

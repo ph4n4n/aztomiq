@@ -1,0 +1,226 @@
+<!-- Auto-generated UI -->
+<% if (typeof toolConfig !=='undefined' && toolConfig.inputs) { %>
+
+  <section class="tool-container">
+    <div class="page-header">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+        <h1 style="margin-bottom: 0;">
+          <i data-lucide="<%= toolConfig.icon %>"></i>
+          <%= t(toolConfig.translationKey + '.title' ) %>
+        </h1>
+        <% if (typeof toolConfig !=='undefined' && toolConfig.meta && toolConfig.meta.version) { %>
+          <span class="version-badge" id="open-changelog">v<%= toolConfig.meta.version %></span>
+          <% } %>
+      </div>
+      <p>
+        <%= t(toolConfig.translationKey + '.desc' ) %>
+      </p>
+    </div>
+
+    <div class="calculator-card">
+
+      <!-- Output Section -->
+      <% if (toolConfig.output) { %>
+        <div class="password-display">
+          <% if (toolConfig.output.type==='textarea' ) { %>
+            <textarea id="<%= toolConfig.output.id %>" <%=toolConfig.output.readonly ? 'readonly' : '' %>
+            placeholder="<%= t(toolConfig.output.placeholder) %>" 
+            rows="<%= toolConfig.output.rows || 1 %>"></textarea>
+            <% } %>
+
+              <div class="display-actions">
+                <% if (toolConfig.actions.secondary) { %>
+                  <% toolConfig.actions.secondary.forEach(function(action) { %>
+                    <button class="btn-icon" onclick="<%= action['function'] %>()" title="<%= t(action.title) %>">
+                      <i data-lucide="<%= action.icon %>"></i>
+                    </button>
+                    <% }); %>
+                      <% } %>
+                        <!-- Regenerate Button -->
+                        <button class="btn-icon" onclick="<%= toolConfig.actions.primary['function'] %>()"
+                          title="Regenerate"><i data-lucide="refresh-cw"></i></button>
+              </div>
+        </div>
+        <% } %>
+
+          <!-- Strength Meter -->
+          <% if (toolConfig.id==='password-generator' ) { %>
+            <div class="strength-meter">
+              <div class="strength-bar" id="strength-bar"></div>
+              <span id="strength-text">Strength</span>
+            </div>
+            <% } %>
+
+              <!-- Inputs Section -->
+              <div class="controls-grid">
+                <% for (let i=0; i < toolConfig.inputs.length; i++) { const input=toolConfig.inputs[i]; let
+                  isPair=false; let input2=null; if (input.layout==='half' && toolConfig.inputs[i+1] &&
+                  toolConfig.inputs[i+1].layout==='half' ) { isPair=true; input2=toolConfig.inputs[i+1]; i++; } %>
+
+                  <% if (input.type==='group' ) { %>
+                    <!-- Group -->
+                    <div class="control-box">
+                      <h3>
+                        <%= t(input.label) %>
+                      </h3>
+                      <% input.items.forEach(function(item) { %>
+                        <label class="checkbox-container">
+                          <input type="<%= item.type %>" id="<%= item.id %>" <%=item.default ? 'checked' : '' %>>
+                          <span>
+                            <%= t(item.label) %>
+                          </span>
+                        </label>
+                        <% }); %>
+                    </div>
+
+                    <% } else if (isPair) { %>
+                      <!-- Paired Inputs -->
+                      <div class="control-box full-width"
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <!-- First Input -->
+                        <div>
+                          <label class="control-label">
+                            <%= t(input.label) %>
+                              <% if (input.displayValue) { %> <span id="<%= input.id %>-val">
+                                  <%= input.default %>
+                                </span>
+                                <% } %>
+                          </label>
+                          <% if (input.type==='range' ) { %>
+                            <input type="range" id="<%= input.id %>" min="<%= input.min %>" max="<%= input.max %>"
+                              value="<%= input.default %>"
+                              oninput="if(document.getElementById('<%= input.id %>-val')) document.getElementById('<%= input.id %>-val').innerText = this.value">
+                            <% } else if (input.type==='number' ) { %>
+                              <input type="number" id="<%= input.id %>" min="<%= input.min %>" max="<%= input.max %>"
+                                value="<%= input.default %>" class="form-input">
+                              <% } %>
+                        </div>
+
+                        <!-- Second Input -->
+                        <div>
+                          <label class="control-label">
+                            <%= t(input2.label) %>
+                              <% if (input2.displayValue) { %> <span id="<%= input2.id %>-val">
+                                  <%= input2.default %>
+                                </span>
+                                <% } %>
+                          </label>
+                          <% if (input2.type==='range' ) { %>
+                            <input type="range" id="<%= input2.id %>" min="<%= input2.min %>" max="<%= input2.max %>"
+                              value="<%= input2.default %>"
+                              oninput="if(document.getElementById('<%= input2.id %>-val')) document.getElementById('<%= input2.id %>-val').innerText = this.value">
+                            <% } else if (input2.type==='number' ) { %>
+                              <input type="number" id="<%= input2.id %>" min="<%= input2.min %>" max="<%= input2.max %>"
+                                value="<%= input2.default %>" class="form-input">
+                              <% } %>
+                        </div>
+                      </div>
+
+                      <% } else if (input.type==='select' ) { %>
+                        <!-- Select Input -->
+                        <div class="control-box">
+                          <label for="<%= input.id %>">
+                            <%= t(input.label) %>
+                          </label>
+                          <select id="<%= input.id %>">
+                            <% input.options.forEach(function(opt) { %>
+                              <option value="<%= opt.value %>" <%=input.default===opt.value ? 'selected' : '' %>><%=
+                                  t(opt.label) %>
+                              </option>
+                              <% }); %>
+                          </select>
+                        </div>
+
+                        <% } else if (input.type==='icon_select' ) { %>
+                          <!-- Icon Select (for type: icon_select) -->
+                          <div class="control-box">
+                            <label for="<%= input.id %>">
+                              <%= t(input.label) %>
+                            </label>
+                            <div class="icon-select-grid">
+                              <% input.options.forEach(function(opt) { %>
+                                <label class="icon-option">
+                                  <input type="radio" name="<%= input.id %>" value="<%= opt.value %>"
+                                    <%=input.default===opt.value ? 'checked' : '' %>>
+                                  <span class="icon-label" title="<%= t(opt.label) %>">
+                                    <i data-lucide="<%= opt.icon %>"></i>
+                                  </span>
+                                </label>
+                                <% }); %>
+                            </div>
+                          </div>
+
+                          <% } else if (input.type==='textarea' ) { %>
+                            <!-- Textarea Input -->
+                            <div class="control-box full-width">
+                              <label for="<%= input.id %>" class="control-label">
+                                <%= t(input.label) %>
+                              </label>
+                              <textarea id="<%= input.id %>" rows="<%= input.rows || 5 %>"
+                                placeholder="<%= input.placeholder ? t(input.placeholder) : '' %>" class="form-input"
+                                style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--bg-card); color: var(--text-primary); font-family: inherit; resize: vertical;"><%= input.default || '' %></textarea>
+                            </div>
+
+                            <% } else { %>
+                              <!-- Single/Orphan Input (number/range) -->
+                              <div class="control-box">
+                                <label class="control-label">
+                                  <%= t(input.label) %>
+                                    <% if (input.displayValue) { %> <span id="<%= input.id %>-val">
+                                        <%= input.default %>
+                                      </span>
+                                      <% } %>
+                                </label>
+                                <% if (input.type==='range' ) { %>
+                                  <input type="range" id="<%= input.id %>" min="<%= input.min %>" max="<%= input.max %>"
+                                    value="<%= input.default %>"
+                                    oninput="if(document.getElementById('<%= input.id %>-val')) document.getElementById('<%= input.id %>-val').innerText = this.value">
+                                  <% } else if (input.type==='number' ) { %>
+                                    <input type="number" id="<%= input.id %>" min="<%= input.min %>"
+                                      max="<%= input.max %>" value="<%= input.default %>" class="form-input">
+                                    <% } %>
+                              </div>
+                              <% } %>
+
+                                <% } %>
+              </div>
+
+              <!-- Primary Action -->
+              <button class="btn btn-primary btn-block" onclick="<%= toolConfig.actions.primary['function'] %>()"
+                style="margin-top: 1.5rem;">
+                <%= t(toolConfig.actions.primary.label) %>
+              </button>
+
+    </div>
+
+    <!-- Content Guide Section -->
+    <% if (toolConfig.guide) { %>
+      <section class="info-section">
+        <h2>
+          <%= t(toolConfig.guide.title) %>
+        </h2>
+        <% if (toolConfig.guide.items) { %>
+          <ul>
+            <% toolConfig.guide.items.forEach(function(item) { %>
+              <li>
+                <% if (item.title) { %><strong>
+                    <%= t(item.title) %>:
+                  </strong>
+                  <% } %>
+                    <%= t(item.content) %>
+              </li>
+              <% }); %>
+          </ul>
+          <% } %>
+      </section>
+      <% } else if (toolConfig.id==='password-generator' ) { %>
+        <div class="info-section">
+          <h2>Why use a strong password?</h2>
+          <p>Using a unique, random password for every account is the single best thing you can do to protect your
+            digital life.</p>
+          <p>We generate passwords locally on your device. Nothing is sent to our servers.</p>
+        </div>
+        <% } %>
+
+  </section>
+  <% } %>

@@ -1,0 +1,74 @@
+<div class="dropdown-menu mega-menu">
+  <div class="mega-sidebar">
+    <div class="mega-sidebar-header">
+      <a href="<%= rootPath %><%= locale %>/" class="sidebar-logo logo-link">
+        <img src="<%= rootPath %>assets/images/logo.svg" alt="Logo" class="logo-icon" width="28" height="28">
+        <span class="logo-text">
+          <%= global.site.title || 'AZtomiq' %>
+        </span>
+      </a>
+    </div>
+    <div class="mega-sidebar-links">
+      <a href="<%= rootPath %><%= locale %>/categories/"
+        class="mega-side-link <%= pageUrl === 'categories/' ? 'active' : '' %>">
+        <span class="icon-wrap"><i data-lucide="folder-kanban"></i></span>
+        <span class="link-text">
+          <%= t('nav.menu_categories') || 'Categories' %>
+        </span>
+      </a>
+      <a href="<%= rootPath %><%= locale %>/changelog/"
+        class="mega-side-link <%= pageUrl === 'changelog/' ? 'active' : '' %>">
+        <span class="icon-wrap"><i data-lucide="history"></i></span>
+        <span class="link-text">
+          <%= t('nav.changelog_title') || 'Changelogs' %>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div class="mega-content-wrap">
+    <% const catOrder=global.category_order || []; const catConfig=global.categories || {}; const
+      colors=['blue', 'green' , 'slate' , 'pink' , 'orange' , 'purple' , 'indigo' , 'red' ]; %>
+      <div class="mega-grid">
+        <% catOrder.forEach((catId, index)=> {
+          const catTools = tools.filter(t => t.category === catId && (t.status === 'active' || t.status === 'legacy' ||
+          t.status === 'not-ready'));
+          if (catTools.length === 0) return;
+          const meta = catConfig[catId] || {};
+          const color = colors[index % colors.length];
+          %>
+          <div class="mega-cat-card accent-<%= color %>">
+            <div class="mega-cat-header">
+              <span class="mega-cat-icon"><i data-lucide="<%= meta.icon || 'folder' %>"></i></span>
+              <span class="mega-cat-title">
+                <%= t(meta.translation_key) || meta.key || catId %>
+              </span>
+            </div>
+            <div class="mega-cat-links">
+              <% catTools.forEach(tool=> {
+                let modeClass = '';
+                if (tool.mode === 'standard') modeClass = 'mode-standard-only';
+                else if (tool.mode === 'advanced') modeClass = 'mode-advanced-only';
+                const isToolActive = pageUrl === tool.link.substring(1);
+                %>
+                <a href="<%= rootPath %><%= locale %><%= tool.link %>"
+                  class="mega-tool-link <%= modeClass %> <%= isToolActive ? 'active' : '' %>">
+                  <span class="tool-dot"></span>
+                  <span class="tool-label">
+                    <%= t(tool.translationKey + '.title' ) %>
+                  </span>
+                  <% if (tool.status==='not-ready' ) { %>
+                    <span class="tool-badge beta">BETA</span>
+                    <% } else if (tool.highlight) { %>
+                      <span class="tool-badge hot">
+                        <i data-lucide="sparkles" style="width: 10px; height: 10px;"></i> HOT
+                      </span>
+                      <% } %>
+                </a>
+                <% }); %>
+            </div>
+          </div>
+          <% }); %>
+      </div>
+  </div>
+</div>

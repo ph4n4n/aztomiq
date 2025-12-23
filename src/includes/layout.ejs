@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="<%= locale %>" data-theme="light">
+
+<head>
+  <%- include('head.ejs') %>
+</head>
+
+<body>
+  <% if (typeof toolConfig !=='undefined' && toolConfig.hideStandardHeader) { %>
+    <!-- Standard Header Hidden for this tool -->
+    <% } else { %>
+      <%- include('header.ejs') %>
+        <% } %>
+
+          <main class="<%= (typeof toolConfig !== 'undefined' && toolConfig.hideStandardHeader) ? '' : 'container' %>">
+            <%- include('breadcrumbs.ejs') %>
+              <%- body %>
+
+                <% if (typeof howToUseHtml !=='undefined' && howToUseHtml) { %>
+                  <section class="card how-to-use-section" style="margin-top: 3rem;">
+                    <h2 style="margin-bottom: 1rem;">📖 <%= t('nav.how_to_use') || 'How to use' %>
+                    </h2>
+                    <div class="markdown-body">
+                      <%- howToUseHtml %>
+                    </div>
+                  </section>
+                  <% } %>
+          </main>
+
+          <% if (!(typeof toolConfig !=='undefined' && toolConfig.hideStandardHeader)) { %>
+            <%- include('footer.ejs') %>
+              <% } %>
+
+                <% if (typeof changelogHtml !=='undefined' && changelogHtml) { %>
+                  <!-- Changelog Modal -->
+                  <div id="changelog-modal" class="search-modal">
+                    <div class="search-overlay" id="close-changelog-overlay"></div>
+                    <div class="search-container">
+                      <div class="search-header">
+                        <span class="search-icon"><i data-lucide="file-clock"
+                            style="width: 20px; height: 20px;"></i></span>
+                        <h2 style="flex: 1; margin: 0; font-size: 1.25rem;">
+                          <%= t('nav.changelog_title') %>
+                        </h2>
+                        <button id="close-changelog" class="close-search">&times;</button>
+                      </div>
+                      <div class="changelog-content">
+                        <%- changelogHtml %>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+
+                    <script src="<%= asset('assets/js/global.js') %>"></script>
+                    <script>
+                      // Initialize Lucide icons
+                      if (window.lucide) {
+                        lucide.createIcons();
+                      }
+                    </script>
+
+                    <% if (typeof toolConfig !=='undefined' && toolConfig.hideStandardHeader) { %>
+                      <!-- In hidden header mode, we still need search logic and scripts from header.ejs -->
+                      <%- include('header-data-only.ejs') %>
+                        <% } %>
+</body>
+
+</html>

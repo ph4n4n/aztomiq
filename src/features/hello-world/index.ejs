@@ -1,0 +1,22 @@
+<section class="tool-container">
+  <div class="page-header">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+      <h1 style="margin-bottom: 0;"><i data-lucide="smile"></i>
+        <%= t('hello_world.title') %>
+      </h1>
+      <span class="version-badge">v1.0.0</span>
+    </div>
+    <p>
+      <%= t('hello_world.desc') %>
+    </p>
+  </div>
+
+  <div class="card" style="max-width: 600px; margin: 2rem auto; text-align: center; padding: 3rem;">
+    <h2 id="greeting">Hello, world!</h2>
+    <p>This is an example tool to demonstrate the AZtomiq architecture.</p>
+    <button class="btn btn-primary" id="change-btn" style="margin-top: 1rem;">Click Me!</button>
+  </div>
+</section>
+
+<script src="<%= toolConfig._assets.js %>"></script>
+<link rel="stylesheet" href="<%= toolConfig._assets.css %>">

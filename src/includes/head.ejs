@@ -1,0 +1,73 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  <%= title %>
+</title>
+<% const metaDesc=(toolConfig && toolConfig.translationKey) ? t(toolConfig.translationKey + '.desc' ) :
+  t('meta.description'); const ogImgPath=(toolConfig && toolConfig.ogImage) ? toolConfig.ogImage : global.site.og_image;
+  %>
+  <meta name="description" content="<%= metaDesc %>">
+  <% const kws=(toolConfig && toolConfig.keywords) ? toolConfig.keywords : global.site.keywords; if (kws && kws.length>
+    0) {
+    %>
+    <meta name="keywords" content="<%= kws.join(', ') %>">
+    <% } %>
+
+      <!-- Canonical URL -->
+      <link rel="canonical" href="<%= global.site.url %>/<%= locale %>/<%= pageUrl %>" />
+
+      <!-- Hreflang Tags for Multi-language -->
+      <% const otherLocale=locale==='vi' ? 'en' : 'vi' ; %>
+        <link rel="alternate" hreflang="vi" href="<%= global.site.url %>/vi/<%= pageUrl %>" />
+        <link rel="alternate" hreflang="en" href="<%= global.site.url %>/en/<%= pageUrl %>" />
+        <link rel="alternate" hreflang="x-default" href="<%= global.site.url %>/vi/<%= pageUrl %>" />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="<%= toolConfig && toolConfig.id ? 'article' : 'website' %>" />
+        <meta property="og:url" content="<%= global.site.url %>/<%= locale %>/<%= pageUrl %>" />
+        <meta property="og:title" content="<%= title %>" />
+        <meta property="og:description" content="<%= metaDesc %>" />
+        <meta property="og:image" content="<%= global.site.url %><%= ogImgPath %>" />
+        <meta property="og:site_name" content="AZtomiq" />
+        <meta property="og:locale" content="<%= locale === 'vi' ? 'vi_VN' : 'en_US' %>" />
+        <meta property="og:locale:alternate" content="<%= otherLocale === 'vi' ? 'vi_VN' : 'en_US' %>" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="<%= global.site.url %>/<%= locale %>/<%= pageUrl %>" />
+        <meta name="twitter:title" content="<%= title %>" />
+        <meta name="twitter:description" content="<%= metaDesc %>" />
+        <meta name="twitter:image" content="<%= global.site.url %><%= ogImgPath %>" />
+
+        <!-- Author & Copyright -->
+        <meta name="author" content="<%= global.site.author %>" />
+        <meta name="robots" content="index, follow" />
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="<%= asset('assets/css/global.css') %>">
+        <% if (toolConfig && toolConfig._assets && toolConfig._assets.css) { %>
+          <link rel="stylesheet" href="<%= toolConfig._assets.css %>">
+          <% } %>
+            <link rel="icon" type="image/svg+xml" href="<%= rootPath %>assets/images/logo.svg">
+            <link rel="manifest" href="<%= rootPath %>manifest.json">
+
+            <!-- Lucide Icons Library -->
+            <script src="https://unpkg.com/lucide@latest"></script>
+
+            <script src="<%= asset('assets/js/user-mode.js') %>"></script>
+
+            <!-- Dark Mode Script (Blocking) -->
+            <script>
+              const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+              document.documentElement.setAttribute('data-theme', savedTheme);
+            </script>
+
+            <!-- Vercel Analytics (Commented to fix 404 in non-Vercel environments)
+  <script>
+    window.va = window.va || function () { (window.va.q = window.va.q || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/analytics/script.js"></script>
+  -->
+
+            <!-- Schema.org Structured Data -->
+            <%- include('schema.ejs') %>

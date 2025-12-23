@@ -1,0 +1,70 @@
+<!-- title: <%= t('nav.menu_categories') %> - AZtomiq -->
+
+<div class="container page-categories" style="margin-bottom: 6rem;">
+  <div class="page-header" style="text-align: center; margin-bottom: 3rem;">
+    <h1><i data-lucide="folder-kanban"
+        style="width: 32px; height: 32px; vertical-align: middle; margin-right: 10px;"></i>
+      <%= t('nav.menu_categories') %>
+    </h1>
+    <p>
+      <%= t('home.hero_desc') %>
+    </p>
+  </div>
+
+  <div class="categories-grid">
+    <% const catOrder=['job', 'finance' , 'text' , 'generator' , 'daily' , 'dev' ]; const catMap={ 'job' : { title:
+      t('home.cats.job.title') || 'Job & Income' , icon: 'briefcase' }, 'finance' : { title:
+      t('home.cats.finance.title') || 'Finance' , icon: 'line-chart' }, 'text' : { title: t('home.cats.text.title')
+      || 'Text Tools' , icon: 'type' }, 'generator' : { title: t('home.cats.generator.title') || 'Generators' ,
+      icon: 'wand-2' }, 'daily' : { title: t('home.cats.daily.title') || 'Daily Utilities' , icon: 'calendar' }, 'dev' :
+      { title: t('home.cats.dev.title') || 'Dev Tools' , icon: 'code' } }; catOrder.forEach(catId=> {
+      const catTools=tools.filter(t=> t.category === catId
+      && (t.status === 'active' || t.status === 'legacy' || t.status === 'not-ready'));
+      if (catTools.length === 0) return;
+      %>
+      <div class="category-card card" id="cat-<%= catId %>">
+        <h2 class="category-title">
+          <span class="cat-icon">
+            <i data-lucide="<%= catMap[catId].icon %>"></i>
+          </span>
+          <%= catMap[catId].title %>
+            <span class="cat-count">
+              <%= catTools.length %> tools
+            </span>
+        </h2>
+        <div class="cat-tools-list">
+          <% catTools.forEach(tool=> {
+            let modeClass = '';
+            if (tool.mode === 'standard') modeClass = 'mode-standard-only';
+            else if (tool.mode === 'advanced') modeClass = 'mode-advanced-only';
+            %>
+            <a href="<%= rootPath %><%= locale %><%= tool.link %>"
+              class="cat-tool-item <%= tool.status === 'legacy' ? 'legacy-item' : '' %> <%= modeClass %>">
+              <span class="tool-icon">
+                <i data-lucide="<%= tool.icon %>"></i>
+                <% if (tool.status==='legacy' ) { %>
+                  <span class="legacy-dot" title="Legacy Tool"
+                    style="display:inline-block; width: 6px; height: 6px; background: var(--text-muted); border-radius: 50%; position: absolute; top: 0; right: 0;"></span>
+                  <% } %>
+              </span>
+              <span class="tool-name">
+                <%= t(tool.translationKey + '.title' ) %>
+              </span>
+
+              <% if (tool.status==='not-ready' ) { %>
+                <span class="tool-badge beta" style="margin-left: auto; position: static;">BETA</span>
+                <% } else if (tool.highlight) { %>
+                  <span class="tool-badge hot"
+                    style="font-size: 0.6rem; padding: 2px 6px; background: #fff7ed; color: #c2410c; border: 1px solid #fb923c; border-radius: 4px; display: flex; align-items: center; gap: 3px; font-weight: 700; position: static; margin-left: auto;">
+                    <i data-lucide="sparkles" style="width: 10px; height: 10px;"></i> HOT
+                  </span>
+                  <% } %>
+            </a>
+            <% }); %>
+        </div>
+      </div>
+      <% }); %>
+  </div>
+</div>
+
+<link rel="stylesheet" href="<%= asset('assets/css/categories.css') %>">

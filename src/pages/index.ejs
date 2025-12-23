@@ -1,0 +1,112 @@
+<!-- title: <%= t('meta.title') %> -->
+<section class="hero">
+  <h1>
+    <%= t('home.hero_title') || 'Welcome to AZtomiq Core' %>
+  </h1>
+  <p>
+    <%= t('home.hero_desc') || 'The modern framework for your utility site.' %>
+  </p>
+</section>
+
+<!-- Big Hero Search Section -->
+<div class="hero-search-wrap">
+  <div class="search-box-hero">
+    <span class="search-icon"><i data-lucide="search"></i></span>
+    <input type="text" id="home-search" placeholder="<%= t('nav.search_placeholder') || 'Search tools...' %>"
+      aria-label="Search tools">
+    <div class="search-hints">
+      <kbd>Ctrl</kbd>
+      <span>+</span>
+      <kbd>K</kbd>
+    </div>
+  </div>
+</div>
+
+<% if (tools.length===0) { %>
+  <div class="container"
+    style="text-align: center; padding: 4rem 2rem; background: var(--bg-hover); border-radius: 24px; border: 1px dashed var(--border-color);">
+    <i data-lucide="package-open" style="width: 64px; height: 64px; margin-bottom: 1.5rem; opacity: 0.5;"></i>
+    <h2>Your framework is ready!</h2>
+    <p style="color: var(--text-muted); max-width: 500px; margin: 1rem auto;">
+      Start building your tools by adding folders into <code>src/features/</code>.
+      Each tool needs a <code>tool.yaml</code>, <code>index.ejs</code>, and optional assets.
+    </p>
+    <div style="margin-top: 2rem;">
+      <a href="https://github.com/ph4n4n/aztomiq" class="btn btn-primary">Read Documentation</a>
+    </div>
+  </div>
+  <% } else { %>
+    <!-- Favorites Section (Dynamic) -->
+    <div class="container favorites-section" id="favorites-section" style="display: none; margin-bottom: 3rem;">
+      <div class="category-header">
+        <h2 class="category-title" style="display: flex; align-items: center; gap: 10px;">
+          <i data-lucide="star" style="color: #f59e0b; fill: #f59e0b;"></i>
+          <%= t('home.favorites') || 'My Tools' %>
+        </h2>
+      </div>
+      <div class="tools-grid" id="favorites-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <% const categories=Object.keys(global.categories || {}).map(key=> ({
+      id: key,
+      ...global.categories[key]
+      }));
+      %>
+
+      <% categories.forEach(cat=> {
+        const catTools = tools.filter(t => t.category === cat.id);
+        if (catTools.length === 0) return;
+        %>
+        <div class="category-section" id="<%= cat.id %>-tools">
+          <h2 class="category-title" style="display: flex; align-items: center; gap: 10px;">
+            <i data-lucide="<%= cat.icon || 'folder' %>"></i>
+            <%= t(cat.translation_key) || cat.key %>
+          </h2>
+          <div class="tools-grid">
+            <% catTools.forEach(tool=> { %>
+              <% let modeClass='' ; if (tool.mode==='standard' ) modeClass='mode-standard-only' ; else if
+                (tool.mode==='advanced' ) modeClass='mode-advanced-only' ; %>
+                <div class="tool-card-wrapper <%= modeClass %>">
+                  <div
+                    class="tool-card <%= (tool.status==='legacy' || tool.status==='not-ready') ? 'legacy-item' : '' %>">
+                    <button class="star-btn" data-tool-id="<%= tool.id %>" aria-label="Add to favorites"
+                      title="Add to favorites">
+                      <i data-lucide="star" style="width: 16px; height: 16px;"></i>
+                    </button>
+
+                    <div class="tool-badge-row">
+                      <% if (tool.status==='legacy' ) { %>
+                        <span class="tool-badge legacy">LEGACY</span>
+                        <% } else if (tool.status==='not-ready' ) { %>
+                          <span class="tool-badge beta">BETA</span>
+                          <% } %>
+                            <% if (tool.highlight) { %>
+                              <span class="tool-badge hot" style="display: flex; align-items: center; gap: 4px;">
+                                <i data-lucide="sparkles" style="width: 10px; height: 10px;"></i> HOT
+                              </span>
+                              <% } %>
+                    </div>
+
+                    <a href="<%= rootPath %><%= locale %><%= tool.link %>" class="tool-link">
+                      <div class="tool-icon-wrap">
+                        <i data-lucide="<%= tool.icon || 'tool' %>" style="width: 32px; height: 32px;"></i>
+                      </div>
+                      <h3>
+                        <%= t(tool.translationKey + '.title' ) %>
+                      </h3>
+                      <p>
+                        <%= t(tool.translationKey + '.desc' ) %>
+                      </p>
+                    </a>
+                  </div>
+                </div>
+                <% }); %>
+          </div>
+        </div>
+        <% }); %>
+          <% } %>
+
+            <script src="<%= asset('assets/js/home.js') %>"></script>
+            <link rel="stylesheet" href="<%= asset('assets/css/home.css') %>">

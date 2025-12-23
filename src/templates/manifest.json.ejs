@@ -1,0 +1,30 @@
+<%- (function() { const manifest={ name: "AZtomiq - Tiện ích cho mọi người" , short_name: "AZtomiq" ,
+  description: "Bộ công cụ tiện ích online miễn phí với kiến trúc nguyên tử." , id: "/?source=pwa" ,
+  start_url: "/vi/?source=pwa" , display: "standalone" , orientation: "portrait" , background_color: "#0f172a" ,
+  theme_color: "#22d3ee" , icons: [ {
+  src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚛️%3C/text%3E%3C/svg%3E"
+  , sizes: "192x192" , type: "image/svg+xml" , purpose: "any" }, {
+  src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚛️%3C/text%3E%3C/svg%3E"
+  , sizes: "512x512" , type: "image/svg+xml" , purpose: "maskable" } ], screenshots: [ {
+  src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720' viewBox='0 0 1280 720'%3E%3Crect width='100%25' height='100%25' fill='%230f172a' /%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='100' fill='white'%3EAZtomiq%3C/text%3E%3C/svg%3E"
+  , sizes: "1280x720" , type: "image/svg+xml" , form_factor: "wide" , label: "AZtomiq Desktop Home" }, {
+  src: "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='1280' viewBox='0 0 720 1280'%3E%3Crect width='100%25' height='100%25' fill='%230f172a' /%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='80' fill='white'%3EAZtomiq%3C/text%3E%3C/svg%3E"
+  , sizes: "720x1280" , type: "image/svg+xml" , form_factor: "narrow" , label: "AZtomiq Mobile Home" } ], shortcuts:
+  tools.filter(t=> t.status === 'active').slice(0, 4).map(tool => ({
+  name: t(tool.translationKey + '.title'),
+  short_name: t(tool.translationKey + '.title'),
+  description: t(tool.translationKey + '.desc').replace(/\n/g, ' '),
+  url: `/${defaultLocale}${tool.link}?source=pwa`,
+  icons: [
+  {
+  src: `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext
+  y='.9em' font-size='90'%3E${tool.icon}%3C/text%3E%3C/svg%3E`,
+  sizes: "192x192",
+  type: "image/svg+xml"
+  }
+  ]
+  }))
+  };
+  return JSON.stringify(manifest, null, 2);
+  })()
+  %>

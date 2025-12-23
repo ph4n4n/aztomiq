@@ -1,0 +1,91 @@
+meta:
+  title: AZtomiq - Modern Framework
+  description: "A comprehensive A-Z framework for building utility sites."
+about:
+  title: About
+  intro_h2: "👋 Hello!"
+  intro_p1: "<strong>AZtomiq</strong> is an online utility toolkit built with a focus on: <strong>Simplicity - Speed - Privacy - Convenience</strong>."
+  intro_p2: "We understand that when you need to calculate finance, format JSON, or <strong>quickly test code (Playground)</strong>, you want a focused, professional, and instant environment."
+  why_h3: "🚀 Why choose AZtomiq?"
+  why_li1: "<strong>Free Forever:</strong> All tools are completely free."
+  why_li2: "<strong>Absolute Privacy:</strong> All processing happens in your browser (Client-side). No data is sent to our servers."
+  why_li3: "<strong>User-Friendly Interface:</strong> Clean, intuitive design with Dark Mode support."
+  contact_h3: "📬 Contact"
+  contact_p: "For any feedback, bug reports, or feature suggestions, please contact us via email:"
+privacy:
+  title: Privacy Policy
+  last_updated: "Last updated: 12/23/2025"
+  section1_h3: "1. Data Collection"
+  section1_p: "At <strong>AZtomiq</strong>, your privacy is our top priority. <strong>We do NOT collect, store, or share any personal data you enter into the tools.</strong>"
+  section1_li1: "Calculation data for tax, salary, BMI... is only processed on your browser."
+  section1_li2: "<strong>Web Playground:</strong> Any code you write and run is executed locally (client-side). Our servers do not store your source code."
+  section1_li3: "When you close the tab or reload the page, temporary data disappears (unless you choose to save it to LocalStorage History)."
+  section2_h3: "2. Local Storage & Cookies"
+  section2_p: "We use <strong>Local Storage</strong> for the following purposes:"
+  section2_li1: "Saving theme preferences (Dark/Light mode)."
+  section2_li2: "Saving calculation history (if enabled). This data remains entirely on your device."
+  section2_p2: "We do not use Cookies for tracking personal behavior."
+  section3_h3: "3. Third-party Services"
+  section3_p: "The website may use anonymous analytics to improve performance. These services operate under their own privacy policies."
+  section4_h3: "4. Policy Changes"
+  section4_p: "We reserve the right to update this policy at any time. Changes will be posted on this page."
+terms:
+  title: Terms of Service
+  section1_h3: "1. Acceptance of Terms"
+  section1_p: "By accessing and using <strong>AZtomiq</strong>, you agree to comply with these terms. If you do not agree, please stop using the service."
+  section2_h3: "2. Purpose of Use"
+  section2_p: "AZtomiq provides utility tools for reference purposes only."
+  section2_li1: "<strong>Financial Tools (Tax, Salary...):</strong> Results are for reference. We strive for accuracy but are not legally responsible for absolute correctness. Consult a professional for important decisions."
+  section2_li2: "<strong>Health Tools (BMI...):</strong> Does not replace professional medical advice."
+  section2_li3: "<strong>Web Playground:</strong> You are responsible for the code you execute. We provide a sandbox but are not liable for security issues from user-inserted malicious code."
+  section3_h3: "3. Disclaimer"
+  section3_p: "AZtomiq is provided 'as is'. We do not guarantee uninterrupted service and are not liable for damages arising from website use."
+  section4_h3: "4. Copyright"
+  section4_p: "Source code and content belong to the developers, except for validly used open-source libraries."
+changelog:
+  title: Version History
+common:
+  legacy_title: Legacy Version
+  legacy_desc: This tool has been integrated into a new version.
+  try_master: Try Now
+  reset: Reset
+nav:
+  home: Home
+  menu_categories: Categories
+  search_placeholder: "Search... (Ctrl + K)"
+  search_no_results: No results found for
+  search_title: Search
+  changelog_title: Version History
+  reset: Reset
+  how_to_use: How to use
+  mode_standard: Standard
+  mode_advanced: Advanced
+  mode_standard_desc: Standard Mode
+  mode_advanced_desc: Advanced Mode
+home:
+  hero_title: AZtomiq
+  hero_desc: "A to Z • Atomic • Fast"
+  favorites: My Favorites
+  cats:
+    finance:
+      title: Finance
+    dev:
+      title: Developer
+    tools:
+      title: General
+  sort:
+    default: Default
+    az: Name (A-Z)
+    za: Name (Z-A)
+    recent: Recently Used
+    popular: Most Used
+  reset: Reset
+footer:
+  about_title: AZtomiq
+  about_desc: "A modern framework for building utility sites."
+  links_title: Links
+  intro: About
+  policy: Privacy Policy
+  terms: Terms of Service
+  changelog: Versions
+  copyright: "© 2025. Built with ❤️."
