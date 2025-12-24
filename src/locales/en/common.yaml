@@ -49,6 +49,7 @@ common:
   legacy_desc: This tool has been integrated into a new version.
   try_master: Try Now
   reset: Reset
+  back: Back
 nav:
   home: Home
   menu_categories: Categories
@@ -56,6 +57,7 @@ nav:
   search_no_results: No results found for
   search_title: Search
   changelog_title: Version History
+  menu_blog: Articles
   reset: Reset
   how_to_use: How to use
   mode_standard: Standard

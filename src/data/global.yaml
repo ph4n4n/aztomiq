@@ -13,6 +13,7 @@ build:
     - en
     - vi
   default_locale: en
+  entry_point: blog # blog or not set for features
   deploy:
     remote: "origin"
     branch: "gh-pages"

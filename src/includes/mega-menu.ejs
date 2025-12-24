@@ -16,6 +16,12 @@
           <%= t('nav.menu_categories') || 'Categories' %>
         </span>
       </a>
+      <a href="<%= rootPath %><%= locale %>/blog/" class="mega-side-link <%= pageUrl === 'blog/' ? 'active' : '' %>">
+        <span class="icon-wrap"><i data-lucide="pen-tool"></i></span>
+        <span class="link-text">
+          <%= t('nav.menu_blog') || 'Dev Stories' %>
+        </span>
+      </a>
       <a href="<%= rootPath %><%= locale %>/changelog/"
         class="mega-side-link <%= pageUrl === 'changelog/' ? 'active' : '' %>">
         <span class="icon-wrap"><i data-lucide="history"></i></span>

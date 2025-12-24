@@ -1,6 +1,6 @@
 dev/assets/css/categories.css: c583f54033efede5512abd549fa86769
-dev/assets/css/global.css: 439e8034a4309c5230178a493f64ce39
-dev/assets/css/home.css: e0ac20822ea7918d499dba7f38a4b518
+dev/assets/css/global.css: 945138265b8a922ecc1f4872b2a02e29
+dev/assets/css/home.css: 8a129c05e359efee0cf5513d3e462d93
 dev/assets/css/master-layout.css: e8356d6868183f12c5962e22d750420b
 dev/assets/css/sidebar-layout.css: 48b6a978d39560b5c9d33ed873d1be85
 dev/assets/js/global.js: 9f6288c7c5da7ff64cc6f1740a5cab36
@@ -12,11 +12,11 @@ dev/page/pages/404.ejs: 3f91a3a14f290a7615850703a3dfbcf0
 dev/page/pages/about.ejs: f06973dbdd3622c8d5ca49c0876800e2
 dev/page/pages/categories.ejs: 58d8dbb54ba734cc2e05747ea6ca922b
 dev/page/pages/changelog.ejs: c93de436cc59b734f4ee597389808c30
-dev/page/pages/index.ejs: 2f5d015f9ef28f620ce6f044bbf9bc98
+dev/page/pages/index.ejs: b71a26ee192626881e83f7b1d57cb8aa
 dev/page/pages/privacy.ejs: 3c9baddc3dc525c666cf61372a4bb70f
 dev/page/pages/terms.ejs: 57ed1880b0690ac856a8f9fc15c07b73
 dev/page/features/hello-world/index.ejs: 6ac76fd5eeb90924ebc9c3f010e4778c
-dev/global/data/global.yaml: b625515421f3e86853d85955210ef6ff
+dev/global/data/global.yaml: 614f473a758acc9bd5e20d128825f011
 dev/includes/includes/breadcrumbs.ejs: 1835fafc5b1e8d8eb7aed35a391bd95b
 dev/includes/includes/cloud-tags.ejs: acdc2e7b55ac6bd456aef81c65163afc
 dev/includes/includes/footer.ejs: f02ca9fa527fa5d88a07cfb654dbb268
@@ -26,5 +26,7 @@ dev/includes/includes/header-data-only.ejs: c709c3c5aed3f12c7c1782f4aaec0a1c
 dev/includes/includes/header.ejs: 2da756db2a3c698a022e56c9fd765715
 dev/includes/includes/layout.ejs: d9ceddab36c101c3846c11dc05f58d2d
 dev/includes/includes/legacy-banner.ejs: 5c375173460280e3b57fd1f1e9b0813b
-dev/includes/includes/mega-menu.ejs: f8c4357ce06d37207e5f6bcae45e1cb0
+dev/includes/includes/mega-menu.ejs: 61d1e41663dad581b7154f0fdb976a8a
 dev/includes/includes/schema.ejs: 600eb5db5dccb999f890ff6bb4834757
+dev/features/blog/style.css: c9913452dd67b6d63d0a6a7949ddecdc
+dev/page/features/blog/index.ejs: 779ae52d1b0a03610b0310d77835e84a

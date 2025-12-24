@@ -1,0 +1,155 @@
+<div class="blog-container">
+
+  <!-- HOME VIEW: List of Articles -->
+  <div id="home-view" class="blog-view">
+    <header class="blog-hero">
+      <div class="hero-chip">✍️ <%= t('blog.title') %>
+      </div>
+      <h1 class="blog-title-main">
+        <%= t('blog.title') %> & Technical Insights
+      </h1>
+      <p class="blog-subtitle">
+        <%= t('blog.desc') %>
+      </p>
+    </header>
+
+    <div class="post-list">
+      <% if (blogPosts && blogPosts.length> 0) { %>
+        <% blogPosts.forEach(post=> { %>
+          <div onclick="route('<%= post.slug %>')" class="post-card">
+            <div class="post-card-content">
+              <div class="post-meta">
+                <span class="post-tag">
+                  <%= post.tag || 'Tech' %>
+                </span>
+                <span class="post-date">
+                  <%= post.date %>
+                </span>
+                <span class="post-readtime">
+                  <%= post.readTime || '5 min read' %>
+                </span>
+              </div>
+              <h2 class="post-title">
+                <%= post.title %>
+              </h2>
+              <p class="post-excerpt">
+                <%= post.excerpt || 'Discover technical insights and stories from our dev team...' %>
+              </p>
+              <div class="post-footer">
+                <span class="read-more">Read Full Story ➔</span>
+              </div>
+            </div>
+          </div>
+          <% }); %>
+            <% } else { %>
+              <div class="empty-state">
+                <div class="empty-icon">📂</div>
+                <p>No stories published yet. Stay tuned!</p>
+              </div>
+              <% } %>
+    </div>
+  </div>
+
+  <!-- ARTICLE VIEW: Dynamic Content Container -->
+  <div id="article-view" class="blog-view hidden">
+    <div class="article-nav">
+      <button onclick="route('')" class="article-back">
+        <span class="back-icon">←</span>
+        <span>
+          <%= t('common.back') || 'Back' %>
+        </span>
+      </button>
+    </div>
+
+    <article class="article-wrapper">
+      <header class="article-header">
+        <div id="article-meta-top" class="post-meta"></div>
+        <h1 id="article-title" class="article-title-text"></h1>
+      </header>
+
+      <div id="article-content" class="article-content markdown-body">
+        <!-- Content Injected Here -->
+      </div>
+
+      <footer class="article-footer">
+        <div class="footer-divider"></div>
+        <button onclick="route('')" class="btn-outline">
+          <%= t('common.back') || 'Back' %>
+        </button>
+      </footer>
+    </article>
+  </div>
+
+</div>
+
+<!-- Hidden Data Source -->
+<script id="blog-posts-data" type="application/json">
+  <%- JSON.stringify(blogPosts || []).replace(/</g, '\\u003c') %>
+</script>
+
+<!-- Client-side Router & Content Data -->
+<script>
+  (function () {
+    // 1. Initialize Data
+    const dataEl = document.getElementById('blog-posts-data');
+    let postsArray = [];
+    try {
+      postsArray = JSON.parse(dataEl.textContent || '[]');
+    } catch (e) {
+      console.error('Failed to parse blog posts data', e);
+    }
+
+    window.POSTS = {};
+    postsArray.forEach(post => {
+      window.POSTS[post.slug] = post;
+    });
+
+    // 2. Simple Router
+    window.route = (slug) => {
+      const homeView = document.getElementById('home-view');
+      const articleView = document.getElementById('article-view');
+      const contentDiv = document.getElementById('article-content');
+
+      const blogTitle = `<%= t('blog.title') %>`;
+      const siteTitle = `<%= global.site.title || 'AZtomiq' %>`;
+
+      if (!slug) {
+        // Show Home
+        homeView.classList.remove('hidden');
+        articleView.classList.add('hidden');
+        if (window.history.pushState) window.history.pushState(null, null, ' ');
+        document.title = `${blogTitle} - ${siteTitle}`;
+        window.scrollTo(0, 0);
+      } else {
+        // Show Article
+        const post = window.POSTS[slug];
+        if (post) {
+          homeView.classList.add('hidden');
+          articleView.classList.remove('hidden');
+
+          document.getElementById('article-title').textContent = post.title || 'Untitled';
+          document.getElementById('article-meta-top').innerHTML = `
+            <span class="post-tag">${post.tag || 'Blog'}</span>
+            <span class="post-date">${post.date || ''}</span>
+            <span class="post-readtime">${post.readTime || ''}</span>
+          `;
+          contentDiv.innerHTML = post.body || '';
+
+          if (window.history.pushState) window.history.pushState(null, null, '#' + slug);
+          document.title = `${post.title || 'Post'} - ${blogTitle}`;
+          window.scrollTo(0, 0);
+        }
+      }
+    };
+
+    // 3. Listeners
+    window.addEventListener('popstate', () => {
+      const hash = window.location.hash.substring(1);
+      window.route(hash);
+    });
+
+    // 4. Initial Load
+    const initialHash = window.location.hash.substring(1);
+    if (initialHash) window.route(initialHash);
+  })();
+</script>

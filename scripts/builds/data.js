@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const yaml = require('js-yaml');
+const { marked } = require('marked');
 const { paths } = require('./config');
 const { parseFrontmatter } = require('./utils');
 
@@ -175,7 +176,7 @@ function getBlogPosts() {
 
     posts.push({
       ...attributes,
-      body: body
+      body: marked.parse(body)
     });
   });
 

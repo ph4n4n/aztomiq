@@ -1,0 +1,9 @@
+id: blog
+name: Bài viết
+description: Hậu trường, kỹ thuật và tài liệu hướng dẫn xây dựng hệ sinh thái AZtomiq.
+category: legacy
+icon: pen-tool
+status: active
+highlight: false
+translationKey: blog
+link: /blog/

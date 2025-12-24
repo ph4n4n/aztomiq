@@ -49,6 +49,7 @@ common:
   legacy_desc: Công cụ này đã được tích hợp vào phiên bản mới.
   try_master: Thử ngay
   reset: Đặt lại
+  back: Quay lại
 nav:
   home: Trang chủ
   menu_categories: Danh mục
@@ -56,6 +57,7 @@ nav:
   search_no_results: Không tìm thấy kết quả cho
   search_title: Tìm kiếm
   changelog_title: Nhật ký thay đổi
+  menu_blog: Bài viết
   reset: Đặt lại
   how_to_use: Hướng dẫn sử dụng
   mode_standard: Standard
