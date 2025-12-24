@@ -1,5 +1,5 @@
 ---
-title: "Zero-Backend Architecture: Running Hundreds of Tools for $0"
+title: Zero-Backend Architecture: Running Hundreds of Tools for $0
 date: Dec 24, 2025
 tag: Architecture
 lang: en

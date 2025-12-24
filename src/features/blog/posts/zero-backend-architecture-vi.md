@@ -1,5 +1,5 @@
 ---
-title: "Kiến trúc Zero-Backend: Cách vận hành hàng trăm công cụ với chi phí $0"
+title: Kiến trúc Zero-Backend: Cách vận hành hàng trăm công cụ với chi phí $0
 date: Dec 24, 2025
 tag: Architecture
 lang: vi
