@@ -15,8 +15,8 @@ build:
   default_locale: en
   entry_point: blog # blog or not set for features
   deploy:
-    remote: "origin"
-    branch: "gh-pages"
+    remote: "https://github.com/ph4n4n/aztomiq.site"
+    branch: "main"
     dist_folder: dist
     strategy: init
 categories:

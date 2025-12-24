@@ -2,13 +2,13 @@ const path = require('path');
 
 // CLI Args
 const isSecure = process.argv.includes('--obfuscate');
-const isDev = !isSecure;
+const isDev = process.argv.includes('--dev');
 let forceRebuild = process.argv.includes('--force');
 
 // Paths
 const ROOT_DIR = path.resolve(__dirname, '../../');
 const SRC_DIR = path.join(ROOT_DIR, 'src');
-const DIST_DIR = path.join(ROOT_DIR, isSecure ? 'dist' : 'dist-dev');
+const DIST_DIR = path.join(ROOT_DIR, isDev ? 'dist-dev' : 'dist');
 const ASSETS_DIST = path.join(DIST_DIR, 'assets');
 const CACHE_FILE = path.join(ROOT_DIR, '.build-cache.yaml');
 

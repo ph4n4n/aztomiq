@@ -2,11 +2,15 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen)](https://nodejs.org/)
-[![Style](https://img.shields.io/badge/style-Glassmorphism-blue)](https://aztomiq.site)
+[![Style](https://img.shields.io/badge/style-Glassmorphism-blue)](https://aztomiq.vercel.app/)
 
 A high-performance, **privacy-first**, and ultra-modular multi-tool website framework. Built with a passion for simplicity and speed.
 
-[Live Demo](https://ztools.site) • [Report Bug](https://github.com/ph4n4n/aztomiq/issues) • [Request Feature](https://github.com/ph4n4n/aztomiq/issues)
+[Live Demo](https://aztomiq.vercel.app/) • [Report Bug](https://github.com/ph4n4n/aztomiq/issues) • [Request Feature](https://github.com/ph4n4n/aztomiq/issues)
+
+### 🌍 Used By
+
+- [ZTools.site](https://ztools.site) — Professional digital toolbox.
 
 ---
 

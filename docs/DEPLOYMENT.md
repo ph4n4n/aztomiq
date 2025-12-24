@@ -33,8 +33,8 @@ Update the `deploy` section in `src/data/global.yaml`:
 ```yaml
 build:
   deploy:
-    remote: "origin"
-    branch: "gh-pages"
+    remote: "https://github.com/ph4n4n/aztomiq.site"
+    branch: "main"
     dist_folder: "dist"
     strategy: "init" # "init" or "subtree"
 ```

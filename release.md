@@ -47,7 +47,7 @@ We believe that great documentation is the soul of Open Source:
 
 ## 🚀 Experience It Now
 
-- **Live Demo**: [ztools.site](https://ztools.site)
+- **Live Demo**: [aztomiq.vercel.app](https://aztomiq.vercel.app/)
 - **Repository**: [ph4n4n/aztomiq](https://github.com/ph4n4n/aztomiq)
 
 ---

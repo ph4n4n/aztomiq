@@ -20,7 +20,7 @@ const commands = {
     runNode(cmdArgs);
   },
   dev: async () => {
-    runNode(['scripts/build.js'], () => {
+    runNode(['scripts/build.js', '--dev'], () => {
       runNode(['server.js']);
     });
   },
