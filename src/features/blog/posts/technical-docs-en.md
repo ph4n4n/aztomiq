@@ -1,8 +1,9 @@
 ---
-title: "Technical Documentation & Core Architecture"
+title: Technical Documentation & Core Architecture
 date: Dec 24, 2025
 tag: Docs
-readTime: 10 min read
+lang: en
+readTime: 12 min read
 slug: technical-documentation-en
 ---
 

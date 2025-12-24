@@ -1,7 +1,8 @@
 ---
-title: "Hướng dẫn kỹ thuật & Core Architecture"
+title: Hướng dẫn kỹ thuật & Core Architecture
 date: Dec 24, 2025
 tag: Docs
+lang: vi
 readTime: 10 min read
 slug: technical-documentation
 ---

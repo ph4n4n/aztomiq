@@ -1,5 +1,6 @@
 site:
   url: https://aztomiq.vercel.app
+  github: https://github.com/ph4n4n/aztomiq
   author: AZtomiq Team
   description: AZtomiq - A comprehensive A-Z multi-tool framework.
   og_image: /assets/images/og-default.png

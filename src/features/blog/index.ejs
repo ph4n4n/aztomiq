@@ -14,39 +14,44 @@
     </header>
 
     <div class="post-list">
-      <% if (blogPosts && blogPosts.length> 0) { %>
-        <% blogPosts.forEach(post=> { %>
-          <div onclick="route('<%= post.slug %>')" class="post-card">
-            <div class="post-card-content">
-              <div class="post-meta">
-                <span class="post-tag">
-                  <%= post.tag || 'Tech' %>
-                </span>
-                <span class="post-date">
-                  <%= post.date %>
-                </span>
-                <span class="post-readtime">
-                  <%= post.readTime || '5 min read' %>
-                </span>
-              </div>
-              <h2 class="post-title">
-                <%= post.title %>
-              </h2>
-              <p class="post-excerpt">
-                <%= post.excerpt || 'Discover technical insights and stories from our dev team...' %>
-              </p>
-              <div class="post-footer">
-                <span class="read-more">Read Full Story ➔</span>
+      <% const currentLocalePosts=(blogPosts || []).filter(post=> {
+        // If no lang is defined, assume it belongs to the default locale (vi)
+        return (post.lang || 'vi') === locale;
+        });
+        %>
+        <% if (currentLocalePosts && currentLocalePosts.length> 0) { %>
+          <% currentLocalePosts.forEach(post=> { %>
+            <div onclick="route('<%= post.slug %>')" class="post-card">
+              <div class="post-card-content">
+                <div class="post-meta">
+                  <span class="post-tag">
+                    <%= post.tag || 'Tech' %>
+                  </span>
+                  <span class="post-date">
+                    <%= post.date %>
+                  </span>
+                  <span class="post-readtime">
+                    <%= post.readTime || '5 min read' %>
+                  </span>
+                </div>
+                <h2 class="post-title">
+                  <%= post.title %>
+                </h2>
+                <p class="post-excerpt">
+                  <%= post.excerpt || 'Discover technical insights and stories from our dev team...' %>
+                </p>
+                <div class="post-footer">
+                  <span class="read-more">Read Full Story ➔</span>
+                </div>
               </div>
             </div>
-          </div>
-          <% }); %>
-            <% } else { %>
-              <div class="empty-state">
-                <div class="empty-icon">📂</div>
-                <p>No stories published yet. Stay tuned!</p>
-              </div>
-              <% } %>
+            <% }); %>
+              <% } else { %>
+                <div class="empty-state">
+                  <div class="empty-icon">📂</div>
+                  <p>No stories published yet. Stay tuned!</p>
+                </div>
+                <% } %>
     </div>
   </div>
 
@@ -84,7 +89,7 @@
 
 <!-- Hidden Data Source -->
 <script id="blog-posts-data" type="application/json">
-  <%- JSON.stringify(blogPosts || []).replace(/</g, '\\u003c') %>
+  <%- JSON.stringify(currentLocalePosts || []).replace(/</g, '\\u003c') %>
 </script>
 
 <!-- Client-side Router & Content Data -->

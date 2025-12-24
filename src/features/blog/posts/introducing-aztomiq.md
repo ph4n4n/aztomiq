@@ -2,6 +2,7 @@
 title: Welcome to AZtomiq
 date: Dec 24, 2025
 tag: Milestone
+lang: en
 readTime: 3 min read
 slug: introducing-aztomiq
 ---

@@ -1,8 +1,9 @@
 ---
-title: Chào mừng đến với AZtomiq
+title: Chào mừng đến với hệ sinh thái AZtomiq
 date: Dec 24, 2025
-tag: Milestone
-readTime: 3 min read
+tag: Community
+lang: vi
+readTime: 4 min read
 slug: welcome-to-aztomiq
 ---
 

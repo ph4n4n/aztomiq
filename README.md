@@ -8,9 +8,11 @@ A high-performance, **privacy-first**, and ultra-modular multi-tool website fram
 
 [Live Demo](https://aztomiq.vercel.app/) • [Report Bug](https://github.com/ph4n4n/aztomiq/issues) • [Request Feature](https://github.com/ph4n4n/aztomiq/issues)
 
-### 🌍 Used By
+### In production
 
-- [ZTools.site](https://ztools.site) — Professional digital toolbox.
+AZtomiq powers:
+
+- https://ztools.site — a full-scale utility tools platform
 
 ---
 
