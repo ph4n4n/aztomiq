@@ -1,5 +1,5 @@
 site:
-  url: https://aztomiq.site
+  url: https://aztomiq.vercel.app
   author: AZtomiq Team
   description: AZtomiq - A comprehensive A-Z multi-tool framework.
   og_image: /assets/images/og-default.png

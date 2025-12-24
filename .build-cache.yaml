@@ -16,7 +16,7 @@ dev/page/pages/index.ejs: b71a26ee192626881e83f7b1d57cb8aa
 dev/page/pages/privacy.ejs: 3c9baddc3dc525c666cf61372a4bb70f
 dev/page/pages/terms.ejs: 57ed1880b0690ac856a8f9fc15c07b73
 dev/page/features/hello-world/index.ejs: 6ac76fd5eeb90924ebc9c3f010e4778c
-dev/global/data/global.yaml: a6f19bc8a444d99eafeec8ad98607222
+dev/global/data/global.yaml: 5103bb7ca7a2bc8bcee9baa839e75006
 dev/includes/includes/breadcrumbs.ejs: 1835fafc5b1e8d8eb7aed35a391bd95b
 dev/includes/includes/cloud-tags.ejs: acdc2e7b55ac6bd456aef81c65163afc
 dev/includes/includes/footer.ejs: f02ca9fa527fa5d88a07cfb654dbb268
