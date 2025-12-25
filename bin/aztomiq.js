@@ -338,6 +338,18 @@ status: active
 `;
     await fs.writeFile(path.join(projectPath, 'src/features/hello-world/index.ejs'), toolEjs);
 
+    const helloEn = `hello-world:\n  title: "Hello World"\n`;
+    const helloVi = `hello-world:\n  title: "Xin chào"\n`;
+    await fs.writeFile(path.join(projectPath, 'src/features/hello-world/locales/en.yaml'), helloEn);
+    await fs.writeFile(path.join(projectPath, 'src/features/hello-world/locales/vi.yaml'), helloVi);
+
+    // 5. Create basic home page
+    const indexEjs = `<h1>Welcome to <%= site.title %></h1>
+<p>Start by editing <code>src/pages/index.ejs</code> or creating new tools in <code>src/features/</code>.</p>
+<p>Check out our sample tool: <a href="/hello-world/"><%= t('hello-world.title') %></a></p>
+`;
+    await fs.writeFile(path.join(projectPath, 'src/pages/index.ejs'), indexEjs);
+
     console.log(`\n✅ Project "${name}" initialized successfully!`);
     console.log(`👉 Next steps:`);
     console.log(`   cd ${name}`);

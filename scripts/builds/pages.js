@@ -138,7 +138,8 @@ async function buildPage(filePath, locale, baseDir, blogPostsArg) {
     changelogHtml,
     howToUseHtml,
     packageVersion,
-    global: GLOBAL_CONFIG,
+    ...getGlobalData(),
+    global: getGlobalData(),
     t,
     blogPosts,
     asset: (relPath) => {

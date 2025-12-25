@@ -11,9 +11,10 @@ const app = express();
 const PORT = 3000;
 
 // Configuration
-const SRC_DIR = path.join(__dirname, 'src');
+const PROJECT_ROOT = process.env.AZTOMIQ_PROJECT_ROOT || process.cwd();
+const SRC_DIR = path.join(PROJECT_ROOT, 'src');
 const FEATURES_DIR = path.join(SRC_DIR, 'features');
-const DIST_DIR = path.join(__dirname, 'dist-dev');
+const DIST_DIR = path.join(PROJECT_ROOT, 'dist-dev');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -59,7 +60,7 @@ app.post('/api/features/:id', (req, res) => {
     console.log(`📝 Updated config for ${id}`);
 
     console.log('🔄 Triggering rebuild...');
-    exec('node scripts/build.js', (error, stdout, stderr) => {
+    exec('npx aztomiq build', { cwd: PROJECT_ROOT }, (error, stdout, stderr) => {
       if (error) console.error(`Build error: ${error}`);
       else console.log(`✅ Build complete`);
     });
@@ -95,7 +96,7 @@ app.post('/api/global', (req, res) => {
     console.log(`📝 Updated Global Config`);
 
     console.log('🔄 Triggering rebuild...');
-    exec('node scripts/build.js', (error, stdout, stderr) => {
+    exec('npx aztomiq build', { cwd: PROJECT_ROOT }, (error, stdout, stderr) => {
       if (error) console.error(`Build error: ${error}`);
       else console.log(`✅ Build complete`);
     });

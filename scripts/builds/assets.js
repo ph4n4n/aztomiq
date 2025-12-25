@@ -82,36 +82,44 @@ async function buildAssets() {
   }
 
   // 1. Global CSS
-  if (await fs.pathExists(cssSrc)) {
-    const files = await fs.readdir(cssSrc);
+  const cssDirs = [path.join(paths.CORE_ROOT, 'src/assets/css'), cssSrc].filter(fs.existsSync);
+  const cssFiles = {};
+  for (const dir of cssDirs) {
+    const files = fs.readdirSync(dir);
     for (const file of files) {
-      if (!file.endsWith('.css')) continue;
-      const srcPath = path.join(cssSrc, file);
-      const destPath = path.join(cssDist, file);
-      if (hasChanged(srcPath) || !fs.existsSync(destPath)) {
-        if (isSecure) {
-          console.time(`🎨 Minifying Global CSS: ${file}`);
-          try { execSync(`npx clean-css-cli -o "${destPath}" "${srcPath}"`); }
-          catch (e) { await fs.copy(srcPath, destPath); }
-          console.timeEnd(`🎨 Minifying Global CSS: ${file}`);
-        } else {
-          console.time(`🎨 Copying Global CSS: ${file}`);
-          await fs.copy(srcPath, destPath);
-          console.timeEnd(`🎨 Copying Global CSS: ${file}`);
-        }
+      if (file.endsWith('.css')) cssFiles[file] = path.join(dir, file);
+    }
+  }
+
+  for (const [file, srcPath] of Object.entries(cssFiles)) {
+    const destPath = path.join(cssDist, file);
+    if (hasChanged(srcPath) || !fs.existsSync(destPath)) {
+      if (isSecure) {
+        console.time(`🎨 Minifying Global CSS: ${file}`);
+        try { execSync(`npx clean-css-cli -o "${destPath}" "${srcPath}"`); }
+        catch (e) { await fs.copy(srcPath, destPath); }
+        console.timeEnd(`🎨 Minifying Global CSS: ${file}`);
+      } else {
+        console.time(`🎨 Copying Global CSS: ${file}`);
+        await fs.copy(srcPath, destPath);
+        console.timeEnd(`🎨 Copying Global CSS: ${file}`);
       }
     }
   }
 
   // 2. Global JS
-  if (await fs.pathExists(jsSrc)) {
-    const files = await fs.readdir(jsSrc);
+  const jsDirs = [path.join(paths.CORE_ROOT, 'src/assets/js'), jsSrc].filter(fs.existsSync);
+  const jsFiles = {};
+  for (const dir of jsDirs) {
+    const files = fs.readdirSync(dir);
     for (const file of files) {
-      if (!file.endsWith('.js')) continue;
-      const srcPath = path.join(jsSrc, file);
-      const destPath = path.join(jsDist, file);
-      processJs(srcPath, destPath, file);
+      if (file.endsWith('.js')) jsFiles[file] = path.join(dir, file);
     }
+  }
+
+  for (const [file, srcPath] of Object.entries(jsFiles)) {
+    const destPath = path.join(jsDist, file);
+    processJs(srcPath, destPath, file);
   }
 
   // 3. Feature Assets

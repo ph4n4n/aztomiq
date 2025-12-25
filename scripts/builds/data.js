@@ -44,28 +44,39 @@ function loadLocales(lang) {
   const srcDir = paths.SRC;
 
   // 1. Load legacy file
-  const legacyPath = path.join(srcDir, 'locales', `${lang}.json`);
-  if (fs.existsSync(legacyPath)) {
-    try {
-      Object.assign(translations, require(legacyPath));
-    } catch (e) { console.error(`Error loading legacy locale ${lang} `, e); }
+  const legacyPaths = [
+    path.join(paths.CORE_ROOT, 'src/locales', `${lang}.json`),
+    path.join(srcDir, 'locales', `${lang}.json`)
+  ];
+  for (const p of legacyPaths) {
+    if (fs.existsSync(p)) {
+      try {
+        Object.assign(translations, typeof require(p) === 'string' ? JSON.parse(fs.readFileSync(p, 'utf8')) : require(p));
+      } catch (e) { console.error(`Error loading legacy locale ${lang} `, e); }
+    }
   }
 
   // 2. Load module folders
-  const dirPath = path.join(srcDir, 'locales', lang);
-  if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
-    const files = fs.readdirSync(dirPath);
-    for (const file of files) {
-      if (file.endsWith('.json')) {
-        try {
-          const content = require(path.join(dirPath, file));
-          Object.assign(translations, content);
-        } catch (e) { console.error(`Error loading locale module ${lang}/${file}`, e); }
-      } else if (file.endsWith('.yaml') || file.endsWith('.yml')) {
-        try {
-          const content = yaml.load(fs.readFileSync(path.join(dirPath, file), 'utf8'));
-          Object.assign(translations, content);
-        } catch (e) { console.error(`Error loading locale module ${lang}/${file}`, e); }
+  const dirPaths = [
+    path.join(paths.CORE_ROOT, 'src/locales', lang),
+    path.join(srcDir, 'locales', lang)
+  ];
+
+  for (const dirPath of dirPaths) {
+    if (fs.existsSync(dirPath) && fs.statSync(dirPath).isDirectory()) {
+      const files = fs.readdirSync(dirPath);
+      for (const file of files) {
+        if (file.endsWith('.json')) {
+          try {
+            const content = JSON.parse(fs.readFileSync(path.join(dirPath, file), 'utf8'));
+            Object.assign(translations, content);
+          } catch (e) { console.error(`Error loading locale module ${lang}/${file}`, e); }
+        } else if (file.endsWith('.yaml') || file.endsWith('.yml')) {
+          try {
+            const content = yaml.load(fs.readFileSync(path.join(dirPath, file), 'utf8'));
+            Object.assign(translations, content);
+          } catch (e) { console.error(`Error loading locale module ${lang}/${file}`, e); }
+        }
       }
     }
   }

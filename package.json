@@ -1,6 +1,6 @@
 {
   "name": "aztomiq",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "description": "AZtomiq - A comprehensive A-Z multi-tool framework with atomic architecture",
   "main": "scripts/build.js",
   "bin": {
@@ -9,8 +9,11 @@
   "files": [
     "bin",
     "scripts",
+    "src/assets",
     "src/includes",
     "src/templates",
+    "src/locales",
+    "server.js",
     "package.json",
     "README.md",
     "LICENSE"
