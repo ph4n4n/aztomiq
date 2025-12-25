@@ -148,17 +148,25 @@ async function buildPage(filePath, locale, baseDir, blogPostsArg) {
   };
 
   try {
+    const projectIncludes = path.join(paths.SRC, 'includes');
+    const coreIncludes = path.join(paths.CORE_ROOT, 'src/includes');
+    const views = [projectIncludes, coreIncludes];
+
     const renderedBody = ejs.render(pageContent, pageData, {
-      views: [path.join(paths.SRC, 'includes')],
+      views: views,
       filename: filePath
     });
 
-    const layoutPath = path.join(paths.SRC, 'includes', 'layout.ejs');
+    let layoutPath = path.join(projectIncludes, 'layout.ejs');
+    if (!fs.existsSync(layoutPath)) {
+      layoutPath = path.join(coreIncludes, 'layout.ejs');
+    }
+
     let fullHtml = await ejs.renderFile(layoutPath, {
       ...pageData,
       body: renderedBody
     }, {
-      views: [path.join(paths.SRC, 'includes')]
+      views: views
     });
 
     const distPath = path.join(paths.DIST, outputRelPath);

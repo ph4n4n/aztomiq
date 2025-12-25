@@ -11,18 +11,30 @@ const { getTools, getBlogPosts, getGlobalData, GLOBAL_CONFIG, LOCALES, DEFAULT_L
 const { hasChanged } = require('./cache');
 
 async function buildTemplates() {
-  const templatesDir = path.join(paths.SRC, 'templates');
-  if (!fs.existsSync(templatesDir)) return;
+  const projectTemplatesDir = path.join(paths.SRC, 'templates');
+  const coreTemplatesDir = path.join(paths.CORE_ROOT, 'src/templates');
+
+  const templateDirs = [coreTemplatesDir, projectTemplatesDir].filter(fs.existsSync);
+  if (templateDirs.length === 0) return;
+
   console.time('📝 Templates Build');
 
   const { categories, tools, toolsMap } = getTools();
   const blogPosts = getBlogPosts();
 
-  const files = fs.readdirSync(templatesDir);
-  for (const file of files) {
-    if (!file.endsWith('.ejs')) continue;
+  // Map to store final file paths (project overrides core)
+  const templateFiles = {};
 
-    const filePath = path.join(templatesDir, file);
+  for (const dir of templateDirs) {
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+      if (file.endsWith('.ejs')) {
+        templateFiles[file] = path.join(dir, file);
+      }
+    }
+  }
+
+  for (const [file, filePath] of Object.entries(templateFiles)) {
     // Logic for hasChanged?
     // "template/" + relative path
     // But templates might depend on global data too.

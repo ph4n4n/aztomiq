@@ -1,11 +1,21 @@
 {
-  "name": "@aztomiq/core",
-  "version": "1.0.0",
+  "name": "aztomiq",
+  "version": "1.0.1",
   "description": "AZtomiq - A comprehensive A-Z multi-tool framework with atomic architecture",
   "main": "scripts/build.js",
   "bin": {
-    "aztomiq": "bin/aztomiq.js"
+    "aztomiq": "bin/aztomiq.js",
+    "create-aztomiq": "bin/create-aztomiq.js"
   },
+  "files": [
+    "bin",
+    "scripts",
+    "src/includes",
+    "src/templates",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "aztomiq": "node bin/aztomiq.js",
     "test": "node bin/aztomiq.js test",

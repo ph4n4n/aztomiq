@@ -58,6 +58,16 @@ AZtomiq isn't just another static site generator. It's an **Ecosystem** designed
 
 ### 1. Installation
 
+**Option A: Scaffolding a new project (Recommended)**
+
+```bash
+npx create-aztomiq my-awesome-app
+cd my-awesome-app
+npm install
+```
+
+**Option B: Manual Installation**
+
 ```bash
 git clone https://github.com/ph4n4n/aztomiq.git
 cd aztomiq

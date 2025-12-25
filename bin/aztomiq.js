@@ -8,7 +8,8 @@ const yaml = require('js-yaml');
 const args = process.argv.slice(2);
 const command = args[0];
 
-const ROOT = path.join(__dirname, '..');
+const PROJECT_ROOT = process.cwd();
+const CORE_ROOT = path.join(__dirname, '..');
 
 const commands = {
   build: async () => {
@@ -37,8 +38,8 @@ const commands = {
   },
   status: async () => {
     console.log('\n🔍  Scanning AZtomiq Ecosystem...');
-    const featuresDir = path.join(ROOT, 'src/features');
-    const testDir = path.join(ROOT, 'tests/features');
+    const featuresDir = path.join(PROJECT_ROOT, 'src/features');
+    const testDir = path.join(PROJECT_ROOT, 'tests/features');
     const dirs = await fs.readdir(featuresDir);
 
     console.log('-----------------------------------------------------------------------------------');
@@ -55,7 +56,7 @@ const commands = {
       const config = yaml.load(await fs.readFile(toolYaml, 'utf8'));
       const vi = await fs.pathExists(path.join(featPath, 'locales/vi.yaml'));
       const en = await fs.pathExists(path.join(featPath, 'locales/en.yaml'));
-      const hasTest = (await fs.readdir(testDir)).some(f => f.startsWith(id));
+      const hasTest = (await fs.pathExists(testDir)) && (await fs.readdir(testDir)).some(f => f.startsWith(id));
 
       const status = config.status === 'active' ? '✅ ACTIVE' : '🚧 DRAFT';
       const locales = (vi ? 'VI ' : '   ') + (en ? 'EN' : '');
@@ -69,11 +70,11 @@ const commands = {
   analyze: async () => {
     console.log('\n📊  Analyzing Tool Payload...');
     let distFolder = 'dist';
-    let distAssets = path.join(ROOT, 'dist/assets/features');
+    let distAssets = path.join(PROJECT_ROOT, 'dist/assets/features');
 
     if (!await fs.pathExists(distAssets)) {
       distFolder = 'dist-dev';
-      distAssets = path.join(ROOT, 'dist-dev/assets/features');
+      distAssets = path.join(PROJECT_ROOT, 'dist-dev/assets/features');
     }
 
     if (!await fs.pathExists(distAssets)) {
@@ -111,13 +112,13 @@ const commands = {
     console.log('🧹 Cleaning up workspace...');
 
     // 1. Remove dist folders
-    await fs.remove(path.join(ROOT, 'dist'));
-    await fs.remove(path.join(ROOT, 'dist-dev'));
+    await fs.remove(path.join(PROJECT_ROOT, 'dist'));
+    await fs.remove(path.join(PROJECT_ROOT, 'dist-dev'));
     console.log('✅ Removed dist/ and dist-dev/');
 
     // 2. Identify and remove draft tools if requested
     if (args.includes('--drafts')) {
-      const featuresDir = path.join(ROOT, 'src/features');
+      const featuresDir = path.join(PROJECT_ROOT, 'src/features');
       const dirs = await fs.readdir(featuresDir);
       for (const id of dirs) {
         const toolYamlPath = path.join(featuresDir, id, 'tool.yaml');
@@ -146,7 +147,7 @@ const commands = {
       return `${ma}.${mi}.${pa}`;
     };
 
-    const featuresDir = path.join(ROOT, 'src/features');
+    const featuresDir = path.join(PROJECT_ROOT, 'src/features');
     const tools = await fs.readdir(featuresDir);
 
     for (const id of tools) {
@@ -174,7 +175,7 @@ const commands = {
       return;
     }
 
-    const toolDir = path.join(ROOT, 'src/features', name);
+    const toolDir = path.join(PROJECT_ROOT, 'src/features', name);
     if (await fs.pathExists(toolDir)) {
       console.error(`❌ Tool "${name}" already exists at ${toolDir}`);
       return;
@@ -309,14 +310,26 @@ function formatBytes(bytes, decimals = 2) {
 }
 
 function runNode(args, cb) {
-  const proc = spawn('node', args, { stdio: 'inherit', cwd: ROOT });
+  // Smart resolve: Priority 1: Current Project, Priority 2: Framework Core
+  let scriptPath = args[0];
+  const localScript = path.join(PROJECT_ROOT, scriptPath);
+  const coreScript = path.join(CORE_ROOT, scriptPath);
+
+  if (fs.existsSync(localScript)) {
+    args[0] = localScript;
+  } else if (fs.existsSync(coreScript)) {
+    args[0] = coreScript;
+    console.log(`[aztomiq] Running core script: ${scriptPath}`);
+  }
+
+  const proc = spawn('node', args, { stdio: 'inherit', cwd: PROJECT_ROOT });
   proc.on('close', (code) => {
     if (code === 0 && cb) cb();
   });
 }
 
 function runNpm(args, cb) {
-  const proc = spawn('npm', args, { stdio: 'inherit', cwd: ROOT, shell: true });
+  const proc = spawn('npm', args, { stdio: 'inherit', cwd: PROJECT_ROOT, shell: true });
   proc.on('close', (code) => {
     if (code === 0 && cb) cb();
   });
