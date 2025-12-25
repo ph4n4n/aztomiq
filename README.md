@@ -61,7 +61,7 @@ AZtomiq isn't just another static site generator. It's an **Ecosystem** designed
 **Option A: Scaffolding a new project (Recommended)**
 
 ```bash
-npx create-aztomiq my-awesome-app
+npx aztomiq init my-awesome-app
 cd my-awesome-app
 npm install
 ```

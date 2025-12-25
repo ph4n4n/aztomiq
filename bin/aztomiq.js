@@ -270,6 +270,79 @@ meta:
 
     console.log(`✅ Tool "${name}" created successfully!`);
     console.log(`👉 Edit it at: src/features/${name}`);
+  },
+  init: async () => {
+    const name = args[1] || 'my-aztomiq-site';
+    const projectPath = path.resolve(PROJECT_ROOT, name);
+
+    if (await fs.pathExists(projectPath)) {
+      console.error(`❌ Directory "${name}" already exists.`);
+      return;
+    }
+
+    console.log(`🚀 Initializing new AZtomiq project: ${name}...`);
+
+    // 1. Create structure
+    const templateDirs = [
+      'src/assets/css',
+      'src/assets/js',
+      'src/assets/images',
+      'src/data',
+      'src/features/hello-world/locales',
+      'src/includes',
+      'src/locales/en',
+      'src/locales/vi',
+      'src/pages',
+      'src/templates'
+    ];
+
+    for (const dir of templateDirs) {
+      await fs.ensureDir(path.join(projectPath, dir));
+    }
+
+    // 2. Create package.json
+    const packageJson = {
+      name: name,
+      version: '1.0.0',
+      scripts: {
+        "dev": "aztomiq dev",
+        "build": "aztomiq build",
+        "status": "aztomiq status"
+      },
+      dependencies: {
+        "aztomiq": "latest"
+      }
+    };
+    await fs.writeJson(path.join(projectPath, 'package.json'), packageJson, { spaces: 2 });
+
+    // 3. Create global.yaml
+    const globalYaml = `site:
+  title: "${name}"
+  description: "Built with AZtomiq"
+build:
+  locales: ["en", "vi"]
+  default_locale: "en"
+`;
+    await fs.writeFile(path.join(projectPath, 'src/data/global.yaml'), globalYaml);
+
+    // 4. Create sample tool
+    const toolYaml = `id: hello-world
+category: general
+icon: smile
+status: active
+`;
+    await fs.writeFile(path.join(projectPath, 'src/features/hello-world/tool.yaml'), toolYaml);
+
+    const toolEjs = `<h1>Hello World</h1>
+<p>Welcome to your new AZtomiq site!</p>
+`;
+    await fs.writeFile(path.join(projectPath, 'src/features/hello-world/index.ejs'), toolEjs);
+
+    console.log(`\n✅ Project "${name}" initialized successfully!`);
+    console.log(`👉 Next steps:`);
+    console.log(`   cd ${name}`);
+    console.log(`   npm install`);
+    console.log(`   npm run dev`);
   }
 };
 
@@ -284,6 +357,7 @@ Commands:
   aztomiq dev             Start development server (Watcher + Node)
   aztomiq build           Build for production (--force, --obfuscate)
   aztomiq deploy          Deploy to public distribution repository
+  aztomiq init <name>     Initialize a new AZtomiq project
   aztomiq status          Scan ecosystem health (Locales, Tests, Config)
   aztomiq analyze         Analyze tool payloads and ecosystem size
   aztomiq cleanup         Remove build artifacts (--drafts to delete draft tools)
