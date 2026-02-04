@@ -12,19 +12,23 @@ function parseFrontmatter(content) {
   // Followed by optional content
   // Ends with ---
   // Followed by remaining content
-  const match = content.match(/^---\n([\s\S]*?)\n?---\n([\s\S]*)$/);
+  // Handles \r\n and optional spaces after ---
+  const match = content.match(/^---\s*[\r\n]+([\s\S]*?)[\r\n]+---\s*[\r\n]*([\s\S]*)$/);
   if (!match) return { attributes: {}, body: content };
 
   const yaml = match[1];
-  const body = match[2].trim();
+  const body = match[2]; // Don't trim here to preserve EJS structure if needed
   const attributes = {};
 
-  yaml.split('\n').forEach(line => {
+  yaml.split(/\r?\n/).forEach(line => {
     const parts = line.split(':');
     if (parts.length >= 2) {
       const key = parts.shift().trim();
       const value = parts.join(':').trim();
-      attributes[key] = value;
+      // Handle simple booleans
+      if (value === 'true') attributes[key] = true;
+      else if (value === 'false') attributes[key] = false;
+      else attributes[key] = value;
     }
   });
 

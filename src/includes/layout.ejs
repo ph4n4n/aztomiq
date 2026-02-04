@@ -5,7 +5,7 @@
   <%- include('head.ejs') %>
 </head>
 
-<body>
+<body class="<%= (typeof toolConfig !== 'undefined' && toolConfig.bodyClass) ? toolConfig.bodyClass : '' %>">
   <% if (typeof toolConfig !=='undefined' && toolConfig.hideStandardHeader) { %>
     <!-- Standard Header Hidden for this tool -->
     <% } else { %>

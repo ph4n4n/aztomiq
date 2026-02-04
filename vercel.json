@@ -1,0 +1,62 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/:path*/",
+      "has": [
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "en"
+        }
+      ],
+      "destination": "/:path*/index.en.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "en"
+        }
+      ],
+      "destination": "/index.en.html"
+    },
+    {
+      "source": "/:path*/",
+      "has": [
+        {
+          "type": "header",
+          "key": "x-vercel-ip-country",
+          "value": "^(?!VN).+$"
+        }
+      ],
+      "missing": [
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ],
+      "destination": "/:path*/index.en.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "header",
+          "key": "x-vercel-ip-country",
+          "value": "^(?!VN).+$"
+        }
+      ],
+      "missing": [
+        {
+          "type": "query",
+          "key": "lang"
+        }
+      ],
+      "destination": "/index.en.html"
+    }
+  ]
+}

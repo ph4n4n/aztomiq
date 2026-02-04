@@ -24,7 +24,7 @@ const { buildTemplates, createRootRedirect, copyRootFiles } = require('./builds/
     await buildAssets();
     await buildPages();
     // await buildAdmin(); 
-    await createRootRedirect();
+    // await createRootRedirect(); // Disabled for SEO Strategy: root serves default locale directly
     await buildTemplates();
     await copyRootFiles();
 

@@ -2,8 +2,9 @@
 <% if (global.build.entry_point==='blog' ) { %>
   <script>
     // Redirect to blog if this is the entry point
-    if (window.location.pathname.endsWith('/<%= locale %>/') || window.location.pathname.endsWith('/<%= locale %>')) {
-      window.location.href = '<%= rootPath %><%= locale %>/blog/';
+    const targetBlogUrl = '<%= rootPath %>blog/<%= locale === "vi" ? "" : "?lang=en" %>';
+    if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+      window.location.href = targetBlogUrl;
     }
   </script>
   <% } %>
@@ -97,7 +98,8 @@
                                   <% } %>
                         </div>
 
-                        <a href="<%= rootPath %><%= locale %><%= tool.link %>" class="tool-link">
+                        <a href="<%= rootPath %><%= tool.link.substring(1) %><%= locale === 'vi' ? '' : '?lang=en' %>"
+                          class="tool-link">
                           <div class="tool-icon-wrap">
                             <i data-lucide="<%= tool.icon || 'tool' %>" style="width: 32px; height: 32px;"></i>
                           </div>

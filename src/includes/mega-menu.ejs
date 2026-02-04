@@ -1,7 +1,7 @@
 <div class="dropdown-menu mega-menu">
   <div class="mega-sidebar">
     <div class="mega-sidebar-header">
-      <a href="<%= rootPath %><%= locale %>/" class="sidebar-logo logo-link">
+      <a href="<%= rootPath %><%= locale === 'vi' ? '' : '?lang=en' %>" class="sidebar-logo logo-link">
         <img src="<%= rootPath %>assets/images/logo.svg" alt="Logo" class="logo-icon" width="28" height="28">
         <span class="logo-text">
           <%= global.site.title || 'AZtomiq' %>
@@ -9,20 +9,21 @@
       </a>
     </div>
     <div class="mega-sidebar-links">
-      <a href="<%= rootPath %><%= locale %>/categories/"
+      <a href="<%= rootPath %>categories/<%= locale === 'vi' ? '' : '?lang=en' %>"
         class="mega-side-link <%= pageUrl === 'categories/' ? 'active' : '' %>">
         <span class="icon-wrap"><i data-lucide="folder-kanban"></i></span>
         <span class="link-text">
           <%= t('nav.menu_categories') || 'Categories' %>
         </span>
       </a>
-      <a href="<%= rootPath %><%= locale %>/blog/" class="mega-side-link <%= pageUrl === 'blog/' ? 'active' : '' %>">
+      <a href="<%= rootPath %>blog/<%= locale === 'vi' ? '' : '?lang=en' %>"
+        class="mega-side-link <%= pageUrl === 'blog/' ? 'active' : '' %>">
         <span class="icon-wrap"><i data-lucide="pen-tool"></i></span>
         <span class="link-text">
           <%= t('nav.menu_blog') || 'Dev Stories' %>
         </span>
       </a>
-      <a href="<%= rootPath %><%= locale %>/changelog/"
+      <a href="<%= rootPath %>changelog/<%= locale === 'vi' ? '' : '?lang=en' %>"
         class="mega-side-link <%= pageUrl === 'changelog/' ? 'active' : '' %>">
         <span class="icon-wrap"><i data-lucide="history"></i></span>
         <span class="link-text">
@@ -57,7 +58,7 @@
                 else if (tool.mode === 'advanced') modeClass = 'mode-advanced-only';
                 const isToolActive = pageUrl === tool.link.substring(1);
                 %>
-                <a href="<%= rootPath %><%= locale %><%= tool.link %>"
+                <a href="<%= rootPath %><%= tool.link.substring(1) %><%= locale === 'vi' ? '' : '?lang=en' %>"
                   class="mega-tool-link <%= modeClass %> <%= isToolActive ? 'active' : '' %>">
                   <span class="tool-dot"></span>
                   <span class="tool-label">

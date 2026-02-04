@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="header-inner container">
     <div class="nav-item logo-wrapper">
-      <a href="<%= rootPath %><%= locale %>/" class="logo-link">
+      <a href="<%= rootPath %><%= locale === 'vi' ? '' : '?lang=en' %>" class="logo-link">
         <img src="<%= rootPath %>assets/images/logo.svg" alt="Logo" class="logo-icon" width="28" height="28">
         <span class="logo-text">
           <%= global.site.title || 'AZtomiq' %>
@@ -25,7 +25,7 @@
         <kbd>Ctrl+K</kbd>
       </div>
 
-      <a href="<%= rootPath %><%= locale %>/categories/" class="btn-icon"
+      <a href="<%= rootPath %>categories/<%= locale === 'vi' ? '' : '?lang=en' %>" class="btn-icon"
         title="<%= t('nav.menu_categories') || 'Categories' %>" aria-label="Categories">
         <i data-lucide="grid-3x3"></i>
       </a>
@@ -35,8 +35,8 @@
         <i data-lucide="search"></i>
       </button>
 
-      <a href="<%= rootPath %><%= locale === 'vi' ? 'en' : 'vi' %>/<%= pageUrl %>" class="lang-switch"
-        title="Switch Language" aria-label="<%= locale === 'vi' ? 'English' : 'Tiếng Việt' %>">
+      <a href="<%= rootPath %><%= pageUrl %><%= locale === 'vi' ? (pageUrl.includes('?') ? '&lang=en' : '?lang=en') : (pageUrl.includes('?') ? '&lang=vi' : '?lang=vi') %>"
+        class="lang-switch" title="Switch Language" aria-label="<%= locale === 'vi' ? 'English' : 'Tiếng Việt' %>">
         <span aria-hidden="true">
           <%= locale==='vi' ? '🇺🇸' : '🇻🇳' %>
         </span>

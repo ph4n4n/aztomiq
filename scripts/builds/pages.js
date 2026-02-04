@@ -9,12 +9,15 @@ const {
   getTools, getGlobalData, getBlogPosts, getTranslation, getFeatureConfig,
   GLOBAL_CONFIG, LOCALES, TOOLS
 } = require('./data');
+const { parseFrontmatter } = require('./utils');
 
 async function buildPage(filePath, locale, baseDir, blogPostsArg) {
   const blogPosts = blogPostsArg || getBlogPosts();
   const relativePath = path.relative(baseDir, filePath);
 
   const pageContent = await fs.readFile(filePath, 'utf-8');
+  const { attributes, body: pureContent } = parseFrontmatter(pageContent);
+  const pageMetadata = attributes || {};
 
   // Determine Output Path
   let outputFileName = 'index.html';
@@ -27,9 +30,17 @@ async function buildPage(filePath, locale, baseDir, blogPostsArg) {
     outputDirRel = path.join(outputDirRel, slug);
   }
 
-  let outputRelPath = path.join(locale, outputDirRel, outputFileName);
+  const { DEFAULT_LOCALE } = require('./data');
+  let outputRelPath;
+  if (locale === DEFAULT_LOCALE) {
+    outputRelPath = path.join(outputDirRel, outputFileName);
+  } else {
+    // For other locales, use extension-based naming (e.g., index.en.html)
+    const fileNameWithLocale = outputFileName.replace('.html', `.${locale}.html`);
+    outputRelPath = path.join(outputDirRel, fileNameWithLocale);
+  }
 
-  const depth = outputRelPath.split(path.sep).length - 1;
+  const depth = outputDirRel === '.' ? 0 : outputDirRel.split(path.sep).filter(Boolean).length;
   const rootPath = depth > 0 ? '../'.repeat(depth) : './';
 
   const t = (key) => getTranslation(key, locale);
@@ -125,7 +136,10 @@ async function buildPage(filePath, locale, baseDir, blogPostsArg) {
   const category = categoryKey ? t(categoryKey) : '';
 
   const pageData = {
-    title: t('meta.title'),
+    ...getGlobalData(),
+    ...pageMetadata,
+    global: getGlobalData(),
+    title: pageMetadata.title || t('meta.title'),
     rootPath,
     assetPath,
     currentPath: relativePath === 'index.ejs' ? 'home' : path.dirname(relativePath),
@@ -133,13 +147,11 @@ async function buildPage(filePath, locale, baseDir, blogPostsArg) {
     locale,
     category,
     tools: TOOLS,
-    toolConfig,
+    toolConfig: { ...toolConfig, ...pageMetadata },
     featureName,
     changelogHtml,
     howToUseHtml,
     packageVersion,
-    ...getGlobalData(),
-    global: getGlobalData(),
     t,
     blogPosts,
     asset: (relPath) => {
@@ -153,10 +165,17 @@ async function buildPage(filePath, locale, baseDir, blogPostsArg) {
     const coreIncludes = path.join(paths.CORE_ROOT, 'src/includes');
     const views = [projectIncludes, coreIncludes];
 
-    const renderedBody = ejs.render(pageContent, pageData, {
+    const renderedBody = ejs.render(pureContent, pageData, {
       views: views,
       filename: filePath
     });
+
+    const distPath = path.join(paths.DIST, outputRelPath);
+
+    if (pageMetadata.layout === false || renderedBody.includes('<!DOCTYPE') || renderedBody.includes('<html')) {
+      await fs.outputFile(distPath, renderedBody);
+      return true;
+    }
 
     let layoutPath = path.join(projectIncludes, 'layout.ejs');
     if (!fs.existsSync(layoutPath)) {
@@ -170,9 +189,7 @@ async function buildPage(filePath, locale, baseDir, blogPostsArg) {
       views: views
     });
 
-    const distPath = path.join(paths.DIST, outputRelPath);
-    await fs.ensureDir(path.dirname(distPath));
-    await fs.writeFile(distPath, fullHtml);
+    await fs.outputFile(distPath, fullHtml);
     return true;
   } catch (e) {
     console.error(`❌ Error building page ${filePath}:`, e);

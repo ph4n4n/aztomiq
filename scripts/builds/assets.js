@@ -67,16 +67,27 @@ async function buildAssets() {
   console.time('🎨 Assets Build');
 
   // 0. Copy all raw assets (images, fonts, vendor, etc)
-  const assetsSrc = path.join(paths.SRC, 'assets');
-  if (fs.existsSync(assetsSrc)) {
-    const items = fs.readdirSync(assetsSrc);
-    for (const item of items) {
-      if (['css', 'js'].includes(item)) continue;
-      const srcPath = path.join(assetsSrc, item);
-      const destPath = path.join(paths.ASSETS_DIST, item);
-      if (hasChanged(srcPath, 'assets-copy/', false)) {
-        await fs.copy(srcPath, destPath);
-        hasChanged(srcPath, 'assets-copy/', true);
+  const assetSubDirs = ['images', 'fonts', 'vendor', 'favicons'];
+  for (const sub of assetSubDirs) {
+    const srcDirs = [
+      path.join(paths.CORE_ROOT, 'src/assets', sub),
+      path.join(paths.SRC, 'assets', sub)
+    ].filter(fs.existsSync);
+
+    if (srcDirs.length === 0) continue;
+
+    const destDir = path.join(paths.ASSETS_DIST, sub);
+    await fs.ensureDir(destDir);
+
+    for (const dir of srcDirs) {
+      const items = fs.readdirSync(dir);
+      for (const item of items) {
+        const srcPath = path.join(dir, item);
+        const destPath = path.join(destDir, item);
+        if (hasChanged(srcPath, `assets-${sub}/`, false)) {
+          await fs.copy(srcPath, destPath);
+          hasChanged(srcPath, `assets-${sub}/`, true);
+        }
       }
     }
   }
